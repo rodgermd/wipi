@@ -6,24 +6,22 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Site\BaseBundle\Entity\User;
+use Site\BaseBundle\Entity\Category;
 
-class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
+class LoadCategoriesData extends AbstractFixture implements OrderedFixtureInterface
 {
   /**
    * {@inheritDoc}
    */
   public function load(ObjectManager $manager)
   {
-    $userAdmin = new User();
-    $userAdmin->setUsername('admin');
-    $userAdmin->setPlainPassword('admin');
-    $userAdmin->setEnabled(true);
-    $userAdmin->setEmail('rodger@ladela.com');
-    $userAdmin->addRole('ROLE_ADMIN');
+    $category = new Category();
+    $category->setName('test category');
+    $category->setUser($this->getReference('user.admin'));
 
-    $this->addReference('user.admin', $userAdmin);
+    $this->setReference('category.test_category', $category);
 
-    $manager->persist($userAdmin);
+    $manager->persist($category);
     $manager->flush();
   }
 
@@ -34,6 +32,6 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
    */
   function getOrder()
   {
-    return 1;
+    return 2;
   }
 }

@@ -6,24 +6,24 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Site\BaseBundle\Entity\User;
+use Site\BaseBundle\Entity\Category;
+use Site\BaseBundle\Entity\Word;
 
-class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
+class LoadWordsData extends AbstractFixture implements OrderedFixtureInterface
 {
   /**
    * {@inheritDoc}
    */
   public function load(ObjectManager $manager)
   {
-    $userAdmin = new User();
-    $userAdmin->setUsername('admin');
-    $userAdmin->setPlainPassword('admin');
-    $userAdmin->setEnabled(true);
-    $userAdmin->setEmail('rodger@ladela.com');
-    $userAdmin->addRole('ROLE_ADMIN');
+    $word = new Word();
+    $word->setSource('кружка');
+    $word->setTarget('cup');
+    $word->setSourceCulture('ru');
+    $word->setTargetCulture('en');
+    $word->setCategory($this->getReference('category.test_category'));
 
-    $this->addReference('user.admin', $userAdmin);
-
-    $manager->persist($userAdmin);
+    $manager->persist($word);
     $manager->flush();
   }
 
@@ -34,6 +34,6 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
    */
   function getOrder()
   {
-    return 1;
+    return 3;
   }
 }

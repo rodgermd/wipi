@@ -18,6 +18,10 @@ framework:
     trusted_proxies: ~
     session:         ~
 
+parameters:
+    assetic.filter.compass.images_dir: %kernel.root_dir%/../web/images
+    assetic.filter.compass.http_path:  /images
+
 # Twig Configuration
 twig:
     debug:            "%kernel.debug%"
@@ -58,3 +62,31 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+vich_uploader:
+    db_driver: orm
+
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: Site\UserBundle\Entity\User
+
+sonata_admin:
+  title: Project Wipi Administration
+
+sonata_doctrine_orm_admin:
+    entity_manager: ~
+
+sonata_block:
+    default_contexts: [cms]
+    blocks:
+        sonata.admin.block.admin_list:
+            contexts:   [admin]
+        sonata.block.service.text:
+        sonata.block.service.rss:
+stof_doctrine_extensions:
+  orm:
+    default:
+      timestampable: true
+      sluggable: true
+      translatable: true

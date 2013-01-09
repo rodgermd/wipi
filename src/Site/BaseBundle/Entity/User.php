@@ -13,4 +13,12 @@ use FOS\UserBundle\Entity\User as BaseUser;
  */
 class User extends BaseUser
 {
+  /**
+   * @var integer
+   *
+   * @ORM\Column(name="id", type="integer")
+   * @ORM\Id
+   * @ORM\GeneratedValue(strategy="AUTO")
+   */
+  protected $id;
 }

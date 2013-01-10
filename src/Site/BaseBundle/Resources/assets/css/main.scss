@@ -1,0 +1,83 @@
+@import "compass";
+
+@include global-reset;
+
+$darkblue: #3126bd;
+$lightblue: #5aace1;
+
+body, html {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  font-family: Ubuntu, Arial, Tahoma, sans-serif;
+}
+
+body {
+  background-color: #fff;
+}
+
+#overall-wrapper {
+  width: 1022px;
+  margin: 0 auto;
+}
+
+#header {
+
+}
+
+#primary-menu-holder {
+  position: relative;
+  height: 42px;
+  @include background-image(linear-gradient($lightblue, #8fd8fd));
+  #link-to-home {
+    float: left;
+    display: block;
+  }
+}
+
+#primary-menu {
+  $border_radius: 5px;
+  text-align: center;
+  width: 400px;
+  margin: 0 auto;
+  a {
+    display: block;
+  }
+  > li {
+    @include inline-block;
+    margin-top: 42px - 30px;
+    > a {
+      padding: 7px 20px;
+      border-top-left-radius: $border_radius;
+      border-top-right-radius: $border_radius;
+      font-size: 16px;
+      color: #333;
+      @include background-image(linear-gradient(#fff, #f3f3f3));
+    }
+    ul {
+      display: none;
+      background-color: $darkblue;
+      border-bottom-right-radius: $border_radius;
+      border-bottom-left-radius: $border_radius;
+      padding: 5px;
+      min-width: 200px;
+      a {
+        color: #fff;
+        text-align: left;
+        padding: 5px 10px;
+        border-radius: $border_radius;
+        &:hover {
+          color: $darkblue;
+          @include background-image(linear-gradient(#fff, $lightblue));
+        }
+      }
+    }
+    &:hover {
+      ul {
+        display: block;
+        position: absolute;
+      }
+    }
+  }
+}
+

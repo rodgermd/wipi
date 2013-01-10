@@ -33,7 +33,9 @@
     "sonata-project/doctrine-orm-admin-bundle":"dev-master",
     "sonata-project/cache-bundle":"dev-master",
     "sonata-project/intl-bundle":"dev-master",
-    "rodgermd/sftools-bundle":"dev-master"
+    "rodgermd/sftools-bundle":"dev-master",
+
+    "twitter/bootstrap": "v2.2.2"
   },
   "scripts":{
     "post-install-cmd":[

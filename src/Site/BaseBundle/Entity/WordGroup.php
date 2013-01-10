@@ -10,10 +10,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Category
  *
- * @ORM\Table(name="categories")
- * @ORM\Entity(repositoryClass="Site\BaseBundle\Entity\CategoryRepository")
+ * @ORM\Table(name="words__groups")
+ * @ORM\Entity(repositoryClass="Site\BaseBundle\Entity\WordGroupRepository")
  */
-class Category
+class WordGroup
 {
   /**
    * @var integer
@@ -40,7 +40,7 @@ class Category
    *      }),
    * @Gedmo\SlugHandler(class="Gedmo\Sluggable\Handler\InversedRelativeSlugHandler", options={
    * @Gedmo\SlugHandlerOption(name="relationClass", value="Site\BaseBundle\Entity\Word"),
-   * @Gedmo\SlugHandlerOption(name="mappedBy", value="category"),
+   * @Gedmo\SlugHandlerOption(name="mappedBy", value="word_group"),
    * @Gedmo\SlugHandlerOption(name="inverseSlugField", value="slug")
    *      })
    * },
@@ -101,7 +101,7 @@ class Category
    * Set user
    *
    * @param User $user
-   * @return Category
+   * @return WordGroup
    */
   public function setUser(User $user)
   {
@@ -124,7 +124,7 @@ class Category
    * Set name
    *
    * @param string $name
-   * @return Category
+   * @return WordGroup
    */
   public function setName($name)
   {
@@ -147,7 +147,7 @@ class Category
    * Set slug
    *
    * @param string $slug
-   * @return Category
+   * @return WordGroup
    */
   public function setSlug($slug)
   {
@@ -191,7 +191,7 @@ class Category
    * Set updated_at
    *
    * @param \DateTime $updatedAt
-   * @return Category
+   * @return WordGroup
    */
   public function setUpdatedAt($updatedAt)
   {
@@ -204,7 +204,7 @@ class Category
    * Add word
    *
    * @param \Site\BaseBundle\Entity\Word $word
-   * @return Category
+   * @return WordGroup
    */
   public function addWord(Word $word)
   {

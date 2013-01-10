@@ -39,10 +39,10 @@ class User extends BaseUser
   protected $slug;
 
   /**
-   * @ORM\OneToMany(targetEntity="Site\BaseBundle\Entity\Category", mappedBy="user", cascade={"persist", "remove"})
-   * @var array $categories
+   * @ORM\OneToMany(targetEntity="Site\BaseBundle\Entity\WordGroup", mappedBy="user", cascade={"persist", "remove"})
+   * @var array $word_groups
    */
-  protected $categories;
+  protected $word_groups;
 
   /**
    * Constructor
@@ -50,7 +50,7 @@ class User extends BaseUser
   public function __construct()
   {
     parent::__construct();
-    $this->categories = new ArrayCollection();
+    $this->word_groups = new ArrayCollection();
   }
 
   /**
@@ -87,58 +87,35 @@ class User extends BaseUser
   }
 
   /**
-   * Add category
-   *
-   * @param \Site\BaseBundle\Entity\Category $categories
-   * @return User
-   */
-  public function addCategory(Category $categories)
-  {
-    $this->categories[] = $categories;
-
-    return $this;
-  }
-
-  /**
-   * Remove category
-   *
-   * @param \Site\BaseBundle\Entity\Category $categories
-   */
-  public function removeCategory(Category $categories)
-  {
-    $this->categories->removeElement($categories);
-  }
-
-  /**
-   * Get categories
+   * Get word groups
    *
    * @return \Doctrine\Common\Collections\Collection
    */
-  public function getCategories()
+  public function getWordGroups()
   {
-    return $this->categories;
+    return $this->word_groups;
   }
 
     /**
-     * Add categories
+     * Add word group
      *
-     * @param \Site\BaseBundle\Entity\Category $categories
+     * @param \Site\BaseBundle\Entity\WordGroup $word_group
      * @return User
      */
-    public function addCategorie(\Site\BaseBundle\Entity\Category $categories)
+    public function addWordGroup(WordGroup $word_group)
     {
-        $this->categories[] = $categories;
+        $this->word_groups[] = $word_group;
     
         return $this;
     }
 
     /**
-     * Remove categories
+     * Remove word group
      *
-     * @param \Site\BaseBundle\Entity\Category $categories
+     * @param \Site\BaseBundle\Entity\WordGroup $word_group
      */
-    public function removeCategorie(\Site\BaseBundle\Entity\Category $categories)
+    public function removeWordGroup(WordGroup $word_group)
     {
-        $this->categories->removeElement($categories);
+        $this->word_groups->removeElement($word_group);
     }
 }

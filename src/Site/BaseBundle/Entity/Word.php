@@ -71,7 +71,7 @@ class Word
    * @var string $slug
    * @Gedmo\Slug(handlers={
    * @Gedmo\SlugHandler(class="Gedmo\Sluggable\Handler\RelativeSlugHandler", options={
-   * @Gedmo\SlugHandlerOption(name="relationField", value="category"),
+   * @Gedmo\SlugHandlerOption(name="relationField", value="word_group"),
    * @Gedmo\SlugHandlerOption(name="relationSlugField", value="slug"),
    *      })
    * },
@@ -96,12 +96,12 @@ class Word
   private $updated_at;
 
   /**
-   * @var Category $category
-   * @ORM\ManyToOne(targetEntity="Site\BaseBundle\Entity\Category", inversedBy="words")
-   * @ORM\JoinColumn(name="category_id", referencedColumnName="id", onDelete="SET NULL")
+   * @var WordGroup $category
+   * @ORM\ManyToOne(targetEntity="Site\BaseBundle\Entity\WordGroup", inversedBy="words")
+   * @ORM\JoinColumn(name="word_group_id", referencedColumnName="id", onDelete="SET NULL")
    * @Assert\NotBlank()
    */
-  private $category;
+  private $word_group;
 
 
   /**
@@ -311,12 +311,12 @@ class Word
     /**
      * Set category
      *
-     * @param \Site\BaseBundle\Entity\Category $category
+     * @param \Site\BaseBundle\Entity\WordGroup $category
      * @return Word
      */
-    public function setCategory(Category $category = null)
+    public function setWordgroup(WordGroup $category = null)
     {
-        $this->category = $category;
+        $this->word_group = $category;
     
         return $this;
     }
@@ -324,10 +324,10 @@ class Word
     /**
      * Get category
      *
-     * @return \Site\BaseBundle\Entity\Category 
+     * @return \Site\BaseBundle\Entity\WordGroup
      */
-    public function getCategory()
+    public function getWordgroup()
     {
-        return $this->category;
+        return $this->word_group;
     }
 }

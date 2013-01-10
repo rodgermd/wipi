@@ -6,20 +6,20 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Site\BaseBundle\Entity\User;
-use Site\BaseBundle\Entity\Category;
+use Site\BaseBundle\Entity\WordGroup;
 
-class LoadCategoriesData extends AbstractFixture implements OrderedFixtureInterface
+class LoadWordGroupsData extends AbstractFixture implements OrderedFixtureInterface
 {
   /**
    * {@inheritDoc}
    */
   public function load(ObjectManager $manager)
   {
-    $category = new Category();
-    $category->setName('test category');
+    $category = new WordGroup();
+    $category->setName('test group');
     $category->setUser($this->getReference('user.admin'));
 
-    $this->setReference('category.test_category', $category);
+    $this->setReference('wordgroup.test_group', $category);
 
     $manager->persist($category);
     $manager->flush();

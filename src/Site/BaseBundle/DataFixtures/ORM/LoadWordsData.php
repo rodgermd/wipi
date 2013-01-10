@@ -6,7 +6,7 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Site\BaseBundle\Entity\User;
-use Site\BaseBundle\Entity\Category;
+use Site\BaseBundle\Entity\WordGroup;
 use Site\BaseBundle\Entity\Word;
 
 class LoadWordsData extends AbstractFixture implements OrderedFixtureInterface
@@ -21,7 +21,7 @@ class LoadWordsData extends AbstractFixture implements OrderedFixtureInterface
     $word->setTarget('cup');
     $word->setSourceCulture('ru');
     $word->setTargetCulture('en');
-    $word->setCategory($this->getReference('category.test_category'));
+    $word->setWordgroup($this->getReference('wordgroup.test_group'));
 
     $manager->persist($word);
     $manager->flush();

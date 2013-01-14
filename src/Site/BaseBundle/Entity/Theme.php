@@ -8,12 +8,12 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * Category
+ * Theme
  *
- * @ORM\Table(name="words__groups")
- * @ORM\Entity(repositoryClass="Site\BaseBundle\Entity\WordGroupRepository")
+ * @ORM\Table(name="themes")
+ * @ORM\Entity(repositoryClass="Site\BaseBundle\Entity\ThemeRepository")
  */
-class WordGroup
+class Theme
 {
   /**
    * @var integer
@@ -40,7 +40,7 @@ class WordGroup
    *      }),
    * @Gedmo\SlugHandler(class="Gedmo\Sluggable\Handler\InversedRelativeSlugHandler", options={
    * @Gedmo\SlugHandlerOption(name="relationClass", value="Site\BaseBundle\Entity\Word"),
-   * @Gedmo\SlugHandlerOption(name="mappedBy", value="word_group"),
+   * @Gedmo\SlugHandlerOption(name="mappedBy", value="theme"),
    * @Gedmo\SlugHandlerOption(name="inverseSlugField", value="slug")
    *      })
    * },
@@ -66,14 +66,14 @@ class WordGroup
 
   /**
    * @var User $user
-   * @ORM\ManyToOne(targetEntity="Site\BaseBundle\Entity\User", inversedBy="categories")
+   * @ORM\ManyToOne(targetEntity="Site\BaseBundle\Entity\User", inversedBy="themes")
    * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
    * @Assert\NotBlank()
    */
   private $user;
 
   /**
-   * @ORM\OneToMany(targetEntity="Site\BaseBundle\Entity\Word", mappedBy="category", cascade={"persist", "remove"})
+   * @ORM\OneToMany(targetEntity="Site\BaseBundle\Entity\Word", mappedBy="theme", cascade={"persist", "remove"})
    * @var array $words
    */
   private $words;
@@ -101,7 +101,7 @@ class WordGroup
    * Set user
    *
    * @param User $user
-   * @return WordGroup
+   * @return Theme
    */
   public function setUser(User $user)
   {
@@ -124,7 +124,7 @@ class WordGroup
    * Set name
    *
    * @param string $name
-   * @return WordGroup
+   * @return Theme
    */
   public function setName($name)
   {
@@ -147,7 +147,7 @@ class WordGroup
    * Set slug
    *
    * @param string $slug
-   * @return WordGroup
+   * @return Theme
    */
   public function setSlug($slug)
   {
@@ -191,7 +191,7 @@ class WordGroup
    * Set updated_at
    *
    * @param \DateTime $updatedAt
-   * @return WordGroup
+   * @return Theme
    */
   public function setUpdatedAt($updatedAt)
   {
@@ -204,7 +204,7 @@ class WordGroup
    * Add word
    *
    * @param \Site\BaseBundle\Entity\Word $word
-   * @return WordGroup
+   * @return Theme
    */
   public function addWord(Word $word)
   {

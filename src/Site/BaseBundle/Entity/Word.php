@@ -71,7 +71,7 @@ class Word
    * @var string $slug
    * @Gedmo\Slug(handlers={
    * @Gedmo\SlugHandler(class="Gedmo\Sluggable\Handler\RelativeSlugHandler", options={
-   * @Gedmo\SlugHandlerOption(name="relationField", value="word_group"),
+   * @Gedmo\SlugHandlerOption(name="relationField", value="theme"),
    * @Gedmo\SlugHandlerOption(name="relationSlugField", value="slug"),
    *      })
    * },
@@ -96,12 +96,12 @@ class Word
   private $updated_at;
 
   /**
-   * @var WordGroup $category
-   * @ORM\ManyToOne(targetEntity="Site\BaseBundle\Entity\WordGroup", inversedBy="words")
-   * @ORM\JoinColumn(name="word_group_id", referencedColumnName="id", onDelete="SET NULL")
+   * @var Theme $theme
+   * @ORM\ManyToOne(targetEntity="Site\BaseBundle\Entity\Theme", inversedBy="words")
+   * @ORM\JoinColumn(name="theme_id", referencedColumnName="id", onDelete="SET NULL")
    * @Assert\NotBlank()
    */
-  private $word_group;
+  private $theme;
 
 
   /**
@@ -309,25 +309,25 @@ class Word
     }
 
     /**
-     * Set category
+     * Set theme
      *
-     * @param \Site\BaseBundle\Entity\WordGroup $category
+     * @param \Site\BaseBundle\Entity\Theme $theme
      * @return Word
      */
-    public function setWordgroup(WordGroup $category = null)
+    public function setTheme(Theme $theme = null)
     {
-        $this->word_group = $category;
+        $this->theme = $theme;
     
         return $this;
     }
 
     /**
-     * Get category
+     * Get theme
      *
-     * @return \Site\BaseBundle\Entity\WordGroup
+     * @return \Site\BaseBundle\Entity\Theme
      */
-    public function getWordgroup()
+    public function getTheme()
     {
-        return $this->word_group;
+        return $this->theme;
     }
 }

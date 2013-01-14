@@ -27,7 +27,7 @@ class User extends BaseUser
   /**
    * @Gedmo\Slug(handlers={
    * @Gedmo\SlugHandler(class="Gedmo\Sluggable\Handler\InversedRelativeSlugHandler", options={
-   * @Gedmo\SlugHandlerOption(name="relationClass", value="Site\BaseBundle\Entity\Category"),
+   * @Gedmo\SlugHandlerOption(name="relationClass", value="Site\BaseBundle\Entity\Theme"),
    * @Gedmo\SlugHandlerOption(name="mappedBy", value="user"),
    * @Gedmo\SlugHandlerOption(name="inverseSlugField", value="slug")
    *      })
@@ -39,10 +39,10 @@ class User extends BaseUser
   protected $slug;
 
   /**
-   * @ORM\OneToMany(targetEntity="Site\BaseBundle\Entity\WordGroup", mappedBy="user", cascade={"persist", "remove"})
+   * @ORM\OneToMany(targetEntity="Site\BaseBundle\Entity\Theme", mappedBy="user", cascade={"persist", "remove"})
    * @var array $word_groups
    */
-  protected $word_groups;
+  protected $themes;
 
   /**
    * Constructor
@@ -50,7 +50,7 @@ class User extends BaseUser
   public function __construct()
   {
     parent::__construct();
-    $this->word_groups = new ArrayCollection();
+    $this->themes = new ArrayCollection();
   }
 
   /**
@@ -87,35 +87,35 @@ class User extends BaseUser
   }
 
   /**
-   * Get word groups
+   * Get themes
    *
    * @return \Doctrine\Common\Collections\Collection
    */
-  public function getWordGroups()
+  public function getThemes()
   {
-    return $this->word_groups;
+    return $this->themes;
   }
 
     /**
-     * Add word group
+     * Add theme
      *
-     * @param \Site\BaseBundle\Entity\WordGroup $word_group
+     * @param \Site\BaseBundle\Entity\Theme $theme
      * @return User
      */
-    public function addWordGroup(WordGroup $word_group)
+    public function addTheme(Theme $theme)
     {
-        $this->word_groups[] = $word_group;
+        $this->themes[] = $theme;
     
         return $this;
     }
 
     /**
-     * Remove word group
+     * Remove theme
      *
-     * @param \Site\BaseBundle\Entity\WordGroup $word_group
+     * @param \Site\BaseBundle\Entity\Theme $theme
      */
-    public function removeWordGroup(WordGroup $word_group)
+    public function removeWordGroup(Theme $theme)
     {
-        $this->word_groups->removeElement($word_group);
+        $this->themes->removeElement($theme);
     }
 }

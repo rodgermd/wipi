@@ -5,12 +5,15 @@ namespace Site\BaseBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Word
  *
  * @ORM\Table(name="words")
  * @ORM\Entity(repositoryClass="Site\BaseBundle\Entity\WordRepository")
+ * @Vich\Uploadable
  */
 class Word
 {
@@ -102,6 +105,28 @@ class Word
    * @Assert\NotBlank()
    */
   private $theme;
+
+  /**
+   * @var User $user
+   * @ORM\ManyToOne(targetEntity="Site\BaseBundle\Entity\User", inversedBy="words")
+   * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="SET NULL")
+   * @Assert\NotBlank()
+   */
+  private $user;
+
+  /**
+   * @Assert\File(maxSize="3M", mimeTypes={"image/png", "image/jpeg", "image/pjpeg"})
+   * @Vich\UploadableField(mapping="word_image", fileNameProperty="image_filename")
+   * @var UploadedFile $imagefile
+   */
+  private $imagefile;
+
+  /**
+   * @Assert\File(maxSize="5M", mimeTypes={"audio/mpeg", "audio/wav"})
+   * @Vich\UploadableField(mapping="word_sound", fileNameProperty="sound_filename")
+   * @var UploadedFile $soundfile
+   */
+  private $soundfile;
 
 
   /**
@@ -285,49 +310,121 @@ class Word
     return $this->updated_at;
   }
 
-    /**
-     * Set slug
-     *
-     * @param string $slug
-     * @return Word
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-    
-        return $this;
-    }
+  /**
+   * Set slug
+   *
+   * @param string $slug
+   * @return Word
+   */
+  public function setSlug($slug)
+  {
+    $this->slug = $slug;
 
-    /**
-     * Get slug
-     *
-     * @return string 
-     */
-    public function getSlug()
-    {
-        return $this->slug;
-    }
+    return $this;
+  }
 
-    /**
-     * Set theme
-     *
-     * @param \Site\BaseBundle\Entity\Theme $theme
-     * @return Word
-     */
-    public function setTheme(Theme $theme = null)
-    {
-        $this->theme = $theme;
-    
-        return $this;
-    }
+  /**
+   * Get slug
+   *
+   * @return string
+   */
+  public function getSlug()
+  {
+    return $this->slug;
+  }
 
-    /**
-     * Get theme
-     *
-     * @return \Site\BaseBundle\Entity\Theme
-     */
-    public function getTheme()
-    {
-        return $this->theme;
-    }
+  /**
+   * Set theme
+   *
+   * @param \Site\BaseBundle\Entity\Theme $theme
+   * @return Word
+   */
+  public function setTheme(Theme $theme = null)
+  {
+    $this->theme = $theme;
+
+    return $this;
+  }
+
+  /**
+   * Get theme
+   *
+   * @return Site\BaseBundle\Entity\Theme
+   */
+  public function getTheme()
+  {
+    return $this->theme;
+  }
+
+  /**
+   * Set created_at
+   *
+   * @param \DateTime $createdAt
+   * @return Word
+   */
+  public function setCreatedAt($createdAt)
+  {
+    $this->created_at = $createdAt;
+
+    return $this;
+  }
+
+  /**
+   * Set user
+   *
+   * @param \Site\BaseBundle\Entity\User $user
+   * @return Word
+   */
+  public function setUser(\Site\BaseBundle\Entity\User $user = null)
+  {
+    $this->user = $user;
+
+    return $this;
+  }
+
+  /**
+   * Get user
+   *
+   * @return \Site\BaseBundle\Entity\User
+   */
+  public function getUser()
+  {
+    return $this->user;
+  }
+
+  /**
+   * Sets Imagefile
+   * @param \Symfony\Component\HttpFoundation\File\UploadedFile $file
+   */
+  public function setImagefile(UploadedFile $file)
+  {
+    $this->imagefile = $file;
+  }
+
+  /**
+   * Gets uploaded file
+   * @return \Symfony\Component\HttpFoundation\File\UploadedFile
+   */
+  public function getImagefile()
+  {
+    return $this->imagefile;
+  }
+
+  /**
+   * Sets sound file
+   * @param \Symfony\Component\HttpFoundation\File\UploadedFile $file
+   */
+  public function setSoundfile(UploadedFile $file)
+  {
+    $this->soundfile = $file;
+  }
+
+  /**
+   * Gets uploaded sound file
+   * @return \Symfony\Component\HttpFoundation\File\UploadedFile
+   */
+  public function getSoundfile()
+  {
+    return $this->soundfile;
+  }
 }

@@ -1,0 +1,28 @@
+knp_gaufrette:
+  adapters:
+    word_images_adapter:
+      local:
+        directory: %kernel.root_dir%/../storage/words/images
+    word_sounds_adapter:
+      local:
+        directory: %kernel.root_dir%/../storage/words/sounds
+
+  filesystems:
+    word_images_fs:
+      adapter:    word_images_adapter
+    word_sounds_fs:
+      adapter:    word_sounds_adapter
+
+vich_uploader:
+  db_driver: orm
+  gaufrette: true
+  storage: vich_uploader.storage.gaufrette
+  mappings:
+    word_image:
+      uri_prefix: /words/images
+      upload_destination: word_images_fs
+      namer: rodgermd.vichuploader.namer_md5
+    word_sound:
+      uri_prefix: /words/sounds
+      upload_destination: word_sounds_fs
+      namer: rodgermd.vichuploader.namer_md5

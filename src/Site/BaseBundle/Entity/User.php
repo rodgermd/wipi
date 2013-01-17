@@ -40,9 +40,15 @@ class User extends BaseUser
 
   /**
    * @ORM\OneToMany(targetEntity="Site\BaseBundle\Entity\Theme", mappedBy="user", cascade={"persist", "remove"})
-   * @var array $word_groups
+   * @var array $themes
    */
   protected $themes;
+
+  /**
+   * @ORM\OneToMany(targetEntity="Site\BaseBundle\Entity\Word", mappedBy="user", cascade={"persist", "remove"})
+   * @var array $words
+   */
+  protected $words;
 
   /**
    * Constructor
@@ -51,6 +57,7 @@ class User extends BaseUser
   {
     parent::__construct();
     $this->themes = new ArrayCollection();
+    $this->words  = new ArrayCollection();
   }
 
   /**
@@ -96,26 +103,69 @@ class User extends BaseUser
     return $this->themes;
   }
 
-    /**
-     * Add theme
-     *
-     * @param \Site\BaseBundle\Entity\Theme $theme
-     * @return User
-     */
-    public function addTheme(Theme $theme)
-    {
-        $this->themes[] = $theme;
-    
-        return $this;
-    }
+  /**
+   * Add theme
+   *
+   * @param \Site\BaseBundle\Entity\Theme $theme
+   * @return User
+   */
+  public function addTheme(Theme $theme)
+  {
+    $this->themes[] = $theme;
 
-    /**
-     * Remove theme
-     *
-     * @param \Site\BaseBundle\Entity\Theme $theme
-     */
-    public function removeWordGroup(Theme $theme)
-    {
-        $this->themes->removeElement($theme);
-    }
+    return $this;
+  }
+
+  /**
+   * Remove theme
+   *
+   * @param \Site\BaseBundle\Entity\Theme $theme
+   */
+  public function removeWordGroup(Theme $theme)
+  {
+    $this->themes->removeElement($theme);
+  }
+
+  /**
+   * Remove themes
+   *
+   * @param \Site\BaseBundle\Entity\Theme $themes
+   */
+  public function removeTheme(\Site\BaseBundle\Entity\Theme $themes)
+  {
+    $this->themes->removeElement($themes);
+  }
+
+  /**
+   * Add words
+   *
+   * @param \Site\BaseBundle\Entity\Word $words
+   * @return User
+   */
+  public function addWord(\Site\BaseBundle\Entity\Word $words)
+  {
+    $this->words[] = $words;
+
+    return $this;
+  }
+
+  /**
+   * Remove words
+   *
+   * @param \Site\BaseBundle\Entity\Word $words
+   */
+  public function removeWord(\Site\BaseBundle\Entity\Word $words)
+  {
+    $this->words->removeElement($words);
+  }
+
+  /**
+   * Get words
+   *
+   * @return \Doctrine\Common\Collections\Collection
+   */
+  public function getWords()
+  {
+    return $this->words;
+  }
 }

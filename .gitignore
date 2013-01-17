@@ -2,6 +2,7 @@
 
 # Bootstrap
 app/bootstrap*
+app/SymfonyRequirements*
 
 # Symfony directories
 vendor/*

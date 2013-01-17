@@ -168,4 +168,20 @@ class User extends BaseUser
   {
     return $this->words;
   }
+
+  public function setEmail($email)
+  {
+    parent::setEmail($email);
+    $this->username = $email;
+
+    return $this;
+  }
+
+  public function setEmailCanonical($email)
+  {
+    parent::setEmailCanonical($email);
+    $this->emailCanonical = $email;
+
+    return $this;
+  }
 }

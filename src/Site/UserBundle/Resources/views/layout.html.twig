@@ -1,0 +1,16 @@
+{% extends "::base.html.twig" %}
+
+{% block flashes %}{% include "::flashes.html.twig" with { translation_domain: 'FOSUserBundle'} %}{% endblock flashes %}
+
+{% block body %}
+  <div id="security-page">
+  {{ block('fos_user_content') }}
+  </div>
+{% endblock body %}
+
+{% block stylesheets %}
+  {{ parent() }}
+  {% stylesheets filter="compass, ?yui_css" "@SiteUserBundle/Resources/assets/security.scss" %}
+  <link rel="stylesheet" href="{{ asset_url }}"/>
+  {% endstylesheets %}
+{% endblock stylesheets %}

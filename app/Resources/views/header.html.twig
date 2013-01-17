@@ -1,7 +1,16 @@
 <div id="header">
   <img src="/images/header.png" width="1022" height="200" alt=""/>
+
   <div id="primary-menu-holder">
     <a href="{{ path('homepage') }}" id="link-to-home">Wipi</a>
+
+    <div id="user-menu-container">
+      {% if is_granted('ROLE_USER') %}
+        {% include "SiteUserBundle:Components:menu_logged_in.html.twig" %}
+      {% else %}
+        {% include "SiteUserBundle:Components:menu_anonymous.html.twig" %}
+      {% endif %}
+    </div>
     <ul id="primary-menu">
       <li><a href="#" onclick="return false;">{{ 'Themes' | trans }}</a></li>
       <li><a href="#" onclick="return false;">{{ 'My Environment' | trans }}</a>

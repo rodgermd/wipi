@@ -5,7 +5,7 @@ imports:
 
 framework:
     #esi:             ~
-    #translator:      { fallback: "%locale%" }
+    translator:      { fallback: "%locale%" }
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -31,7 +31,7 @@ twig:
 # Assetic Configuration
 assetic:
     debug:          "%kernel.debug%"
-    bundles:        [SonataAdminBundle, SiteBaseBundle]
+    bundles:        [SonataAdminBundle, SiteBaseBundle, FOSUserBundle]
     use_controller: false
     filters:
       sass:    ~
@@ -66,9 +66,13 @@ vich_uploader:
     db_driver: orm
 
 fos_user:
-    db_driver: orm
-    firewall_name: main
-    user_class: Site\BaseBundle\Entity\User
+  db_driver: orm
+  firewall_name: main
+  user_class: Site\BaseBundle\Entity\User
+  registration:
+    form:
+      type: wipi_user_registration_form
+
 
 sonata_admin:
   title: Project Wipi Administration

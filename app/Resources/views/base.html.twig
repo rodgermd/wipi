@@ -5,10 +5,10 @@
   <title>{% block title %}Wipi project{% endblock %}</title>
   {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('/bootstrap/css/bootstrap.css') }}"/>
-    <link href='http://fonts.googleapis.com/css?family=Ubuntu:300,400,700,300italic,400italic,700italic&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
-    {% stylesheets filter="compass, ?yui_css"
-    "@SiteBaseBundle/Resources/assets/css/main.scss"
-    %}
+    <link
+        href='http://fonts.googleapis.com/css?family=Ubuntu:300,400,700,300italic,400italic,700italic&subset=latin,cyrillic'
+        rel='stylesheet' type='text/css'>
+    {% stylesheets filter="compass, ?yui_css" "@SiteBaseBundle/Resources/assets/css/main.scss" %}
     <link rel="stylesheet" href="{{ asset_url }}"/>
     {% endstylesheets %}
   {% endblock %}
@@ -17,16 +17,17 @@
 <body>
 
 <div id="overall-wrapper">
-{% include "::header.html.twig" %}
+  {% include "::header.html.twig" %}
   <div id="content-wrapper">
+    {% block flashes %}{% include "::flashes.html.twig" %}{% endblock flashes %}
     {% block body %}{% endblock body %}
   </div>
   {% include "::footer.html.twig" %}
 </div>
 
 {% block javascripts %}
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
-    <script src="{{ asset('/bootstrap/js/bootstrap.min.js') }}"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+  <script src="{{ asset('/bootstrap/js/bootstrap.min.js') }}"></script>
 {% endblock javascripts %}
 
 </body>

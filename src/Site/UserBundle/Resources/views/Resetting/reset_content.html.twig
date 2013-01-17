@@ -1,0 +1,14 @@
+{% form_theme form "RodgermdSfToolsBundle:Form:bootstrap_control_groups_theme.html.twig" %}
+<form action="{{ path('fos_user_resetting_reset', {'token': token}) }}" {{ form_enctype(form) }} method="POST"
+      class="fos_user_resetting_reset form-horizontal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>{{ 'Reset password' | trans }}</h3>
+    </div>
+    <div class="modal-body">
+      {{ form_widget(form) }}
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-success">{{ 'resetting.reset.submit'|trans({}, 'FOSUserBundle') }}</button>
+    </div>
+</form>

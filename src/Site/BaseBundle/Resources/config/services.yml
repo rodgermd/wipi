@@ -1,0 +1,6 @@
+services:
+  wipi.registration.form.type:
+    class: Site\UserBundle\Form\RegistrationFormType
+    arguments: [%fos_user.model.user.class%]
+    tags:
+        - { name: form.type, alias: wipi_user_registration_form }

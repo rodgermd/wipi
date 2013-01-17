@@ -1,0 +1,10 @@
+{% if app.session.flashbag | length %}
+  {% set translation_domain = translation_domain | default('messages') %}
+  <div id="flashes">
+    {% for key, message in app.session.flashbag.all %}
+      <div class="alert alert-{{ key }}">
+        {{ message|trans({}, translation_domain) }}
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}

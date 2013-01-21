@@ -4,3 +4,8 @@ services:
     arguments: [%fos_user.model.user.class%]
     tags:
         - { name: form.type, alias: wipi_user_registration_form }
+
+  wipi.twig.images_extension:
+    class: Site\BaseBundle\Twig\ImageExtension
+    tags: [ { name: twig.extension } ]
+    arguments: [@service_container]

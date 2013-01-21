@@ -28,20 +28,6 @@ class Word
 
   /**
    * @var string
-   * @Assert\NotBlank
-   * @ORM\Column(name="source_culture", type="string", length=2)
-   */
-  private $source_culture;
-
-  /**
-   * @var string
-   * @Assert\NotBlank
-   * @ORM\Column(name="target_culture", type="string", length=2)
-   */
-  private $target_culture;
-
-  /**
-   * @var string
    *
    * @ORM\Column(name="source", type="string", length=100)
    * @Assert\NotBlank
@@ -137,52 +123,6 @@ class Word
   public function getId()
   {
     return $this->id;
-  }
-
-  /**
-   * Set source_culture
-   *
-   * @param string $sourceCulture
-   * @return Word
-   */
-  public function setSourceCulture($sourceCulture)
-  {
-    $this->source_culture = $sourceCulture;
-
-    return $this;
-  }
-
-  /**
-   * Get source_culture
-   *
-   * @return string
-   */
-  public function getSourceCulture()
-  {
-    return $this->source_culture;
-  }
-
-  /**
-   * Set target_culture
-   *
-   * @param string $targetCulture
-   * @return Word
-   */
-  public function setTargetCulture($targetCulture)
-  {
-    $this->target_culture = $targetCulture;
-
-    return $this;
-  }
-
-  /**
-   * Get target_culture
-   *
-   * @return string
-   */
-  public function getTargetCulture()
-  {
-    return $this->target_culture;
   }
 
   /**

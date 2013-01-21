@@ -1,0 +1,12 @@
+theme:
+  create: Создать тему
+  new: Новая тема
+  name: Название
+
+culture:
+  source: Исходный язык
+  target: Конечный язык
+
+word:
+  source: Исходное слово
+  translation: Перевод

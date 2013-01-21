@@ -127,6 +127,21 @@ ul.errors {
   padding: 20px;
 }
 
+form div.modal {
+  position: relative;
+  top: auto;
+  left: auto;
+  right: auto;
+  margin: 20px auto;
+  z-index: 1;
+  .modal-footer {
+    label {
+      @include inline-block;
+      margin-right: 20px;
+    }
+  }
+}
+
 .modal-footer {
   label.checkbox {
     white-space: nowrap;

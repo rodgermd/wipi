@@ -32,6 +32,20 @@ class Theme
   private $name;
 
   /**
+   * @var string
+   * @Assert\NotBlank
+   * @ORM\Column(name="source_culture", type="string", length=2)
+   */
+  private $source_culture;
+
+  /**
+   * @var string
+   * @Assert\NotBlank
+   * @ORM\Column(name="target_culture", type="string", length=2)
+   */
+  private $target_culture;
+
+  /**
    * @var string $slug
    * @Gedmo\Slug(handlers={
    * @Gedmo\SlugHandler(class="Gedmo\Sluggable\Handler\RelativeSlugHandler", options={
@@ -84,6 +98,11 @@ class Theme
   public function __construct()
   {
     $this->words = new ArrayCollection();
+  }
+
+  public function __toString()
+  {
+    return $this->getName();
   }
 
 
@@ -141,6 +160,52 @@ class Theme
   public function getName()
   {
     return $this->name;
+  }
+
+  /**
+   * Set source_culture
+   *
+   * @param string $sourceCulture
+   * @return Theme
+   */
+  public function setSourceCulture($sourceCulture)
+  {
+    $this->source_culture = $sourceCulture;
+
+    return $this;
+  }
+
+  /**
+   * Get source_culture
+   *
+   * @return string
+   */
+  public function getSourceCulture()
+  {
+    return $this->source_culture;
+  }
+
+  /**
+   * Set target_culture
+   *
+   * @param string $targetCulture
+   * @return Word
+   */
+  public function setTargetCulture($targetCulture)
+  {
+    $this->target_culture = $targetCulture;
+
+    return $this;
+  }
+
+  /**
+   * Get target_culture
+   *
+   * @return string
+   */
+  public function getTargetCulture()
+  {
+    return $this->target_culture;
   }
 
   /**

@@ -4,19 +4,5 @@
   position: relative;
   form {
     padding: 20px;
-    .modal {
-      position: relative;
-      top: auto;
-      left: auto;
-      right: auto;
-      margin: 20px auto;
-      z-index: 1;
-      .modal-footer {
-        label {
-          @include inline-block;
-          margin-right: 20px;
-        }
-      }
-    }
   }
 }

@@ -1,0 +1,12 @@
+theme:
+  create: Create theme
+  new: New theme
+  name: Name
+
+culture:
+  source: Source culture
+  target: Target culture
+
+word:
+  source: Source
+  translation: Translation

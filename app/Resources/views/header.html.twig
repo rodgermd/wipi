@@ -12,13 +12,18 @@
       {% endif %}
     </div>
     <ul id="primary-menu">
-      <li><a href="#" onclick="return false;">{{ 'Themes' | trans }}</a></li>
+      <li>
+        <a href="#" onclick="return false;">{{ 'Themes' | trans }}</a>
+        <ul>
+          <li><a href="{{ path('theme.new') }}">{{ 'Create new theme' | trans }}</a></li>
+          <li><a href="#">{{ 'Create new word' | trans }}</a></li>
+        </ul>
+      </li>
       <li><a href="#" onclick="return false;">{{ 'My Environment' | trans }}</a>
         <ul>
           <li><a href="#" onclick="return false;">{{ 'Favourites' | trans }}</a></li>
           <li><a href="#" onclick="return false;">{{ 'In progress' | trans }}</a></li>
           <li><a href="#" onclick="return false;">{{ 'Finished' | trans }}</a></li>
-          <li><a href="#" onclick="return false;">{{ 'Create theme' | trans }}</a></li>
         </ul>
       </li>
       <li><a href="#" onclick="return false;">{{ 'Network' | trans }}</a></li>

@@ -26,3 +26,11 @@ vich_uploader:
       uri_prefix: /words/sounds
       upload_destination: word_sounds_fs
       namer: rodgermd.vichuploader.namer_md5
+
+liip_imagine:
+  driver: imagick
+
+  filter_sets:
+    word_thumbnail:
+      filters:
+        thumbnail: { size: [50, 50], mode: outbound }

@@ -26,8 +26,8 @@ security:
         form_login:
             provider: fos_userbundle
             csrf_provider: form.csrf_provider
-            check_path: /user/login_check
-            login_path: /user/login
+            check_path: /security/login_check
+            login_path: /security/login
             use_referer: true
         logout:
           path: /user/logout

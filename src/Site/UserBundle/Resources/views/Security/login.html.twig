@@ -1,10 +1,6 @@
 {% extends "FOSUserBundle::layout.html.twig" %}
 
 {% block fos_user_content %}
-  {% if error %}
-    <div>{{ error|trans({}, 'FOSUserBundle') }}</div>
-  {% endif %}
-
   <form class="form-horizontal" action="{{ path("fos_user_security_check") }}" method="post">
 
     <div class="modal">
@@ -12,6 +8,9 @@
         <h3>{{ 'Log in' | trans }}</h3>
       </div>
       <div class="modal-body">
+        {% if error %}
+          <div class="alert alert-block alert-error">{{ error|trans({}, 'FOSUserBundle') }}</div>
+        {% endif %}
         <div class="control-group">
           <label class="control-label" for="username">{{ 'Email' | trans }}:</label>
 

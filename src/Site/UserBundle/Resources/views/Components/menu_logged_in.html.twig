@@ -1,0 +1,6 @@
+{% spaceless %}
+<ul id="user-menu">
+  <li>{{ 'Hello, %user%' | trans({ '%user%' : app.user }) }}</li>
+  <li><a href="{{ path('fos_user_security_logout') }}">{{ 'Logout' | trans }}</a></li>
+</ul>
+{% endspaceless %}

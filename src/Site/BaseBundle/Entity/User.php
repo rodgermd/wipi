@@ -60,6 +60,11 @@ class User extends BaseUser
     $this->words  = new ArrayCollection();
   }
 
+  public function __toString()
+  {
+    return $this->getUsername();
+  }
+
   /**
    * Get id
    *
@@ -169,6 +174,11 @@ class User extends BaseUser
     return $this->words;
   }
 
+  /**
+   * Rewrite set email
+   * @param string $email
+   * @return \FOS\UserBundle\Model\User|User
+   */
   public function setEmail($email)
   {
     parent::setEmail($email);
@@ -177,6 +187,11 @@ class User extends BaseUser
     return $this;
   }
 
+  /**
+   * Rewrite set canonical email
+   * @param string $email
+   * @return \FOS\UserBundle\Model\User|User
+   */
   public function setEmailCanonical($email)
   {
     parent::setEmailCanonical($email);

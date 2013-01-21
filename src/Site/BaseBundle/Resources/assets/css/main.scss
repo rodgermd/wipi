@@ -45,13 +45,14 @@ ul.errors {
 
 #user-menu-container {
   float: right;
-  padding: 10px 20px 0 0;
+  padding: 17px 20px 0 0;
   li {
-    color: $lightblue;
+    color: $darkblue;
     @include inline-block;
     &:not(:last-child)::after {
       content: '|';
       margin: 0 3px;
+      color: $lightblue;
     }
   }
 }
@@ -98,8 +99,10 @@ ul.errors {
       background-color: $darkblue;
       border-bottom-right-radius: $border_radius;
       border-bottom-left-radius: $border_radius;
+      box-shadow: 0 0 3px rgba(0,0,0,.5);
       padding: 5px;
       min-width: 200px;
+      z-index: 1000;
       a {
         color: #fff;
         text-align: left;
@@ -122,5 +125,14 @@ ul.errors {
 
 #content-wrapper {
   padding: 20px;
+}
+
+.modal-footer {
+  label.checkbox {
+    white-space: nowrap;
+  }
+  .forgot-register-holder {
+    padding-top: 10px;
+  }
 }
 

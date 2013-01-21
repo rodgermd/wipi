@@ -11,17 +11,13 @@ class RegistrationFormType extends BaseType
   {
     $builder
       ->add('email', 'email', array('label' => 'form.email', 'translation_domain' => 'FOSUserBundle', 'attr' => array('placeholder' => 'Email')))
-      ->add('plainPassword', 'repeated', array(
-      'type' => 'password',
-      'options' => array('translation_domain' => 'FOSUserBundle'),
-      'first_options' => array('label' => 'form.password', 'attr' => array('placeholder' => 'Password')),
-      'second_options' => array('label' => 'form.password_confirmation', 'attr' => array('placeholder' => 'Confirm password')),
-      'invalid_message' => 'fos_user.password.mismatch',
-    ))
-    ;
+      ->add('plainPassword', 'password', array(
+      'translation_domain' => 'FOSUserBundle',
+      'label'              => 'form.password',
+      'attr'               => array('placeholder' => 'Password')));
   }
 
-    public function getName()
+  public function getName()
   {
     return 'wipi_user_registration_form';
   }

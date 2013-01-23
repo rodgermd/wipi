@@ -16,10 +16,9 @@ class LoadWordsData extends AbstractFixture implements OrderedFixtureInterface
   public function load(ObjectManager $manager)
   {
     $word = new Word();
+    $word->setUser($this->getReference('user.admin'));
     $word->setSource('кружка');
     $word->setTarget('cup');
-    $word->setSourceCulture('ru');
-    $word->setTargetCulture('en');
     $word->setTheme($this->getReference('theme.test_theme'));
 
     $manager->persist($word);

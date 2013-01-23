@@ -15,13 +15,15 @@ class LoadThemesData extends AbstractFixture implements OrderedFixtureInterface
    */
   public function load(ObjectManager $manager)
   {
-    $category = new Theme();
-    $category->setName('test theme');
-    $category->setUser($this->getReference('user.admin'));
+    $theme = new Theme();
+    $theme->setName('test theme');
+    $theme->setUser($this->getReference('user.admin'));
+    $theme->setSourceCulture('ru');
+    $theme->setTargetCulture('en');
 
-    $this->setReference('theme.test_theme', $category);
+    $this->setReference('theme.test_theme', $theme);
 
-    $manager->persist($category);
+    $manager->persist($theme);
     $manager->flush();
   }
 

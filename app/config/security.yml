@@ -30,7 +30,7 @@ security:
             login_path: /security/login
             use_referer: true
         logout:
-          path: /user/logout
+          path: /security/logout
         anonymous: true
         remember_me:
           key:      %secret%

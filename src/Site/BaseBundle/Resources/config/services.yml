@@ -9,3 +9,7 @@ services:
     class: Site\BaseBundle\Twig\ImageExtension
     tags: [ { name: twig.extension } ]
     arguments: [@service_container]
+
+  wipi.translator:
+    class: Site\BaseBundle\Helper\TranslationHelper
+    arguments: [@service_container]

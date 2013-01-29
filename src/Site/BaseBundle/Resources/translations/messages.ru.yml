@@ -7,6 +7,3 @@ culture:
   source: Исходный язык
   target: Конечный язык
 
-word:
-  source: Исходное слово
-  translation: Перевод

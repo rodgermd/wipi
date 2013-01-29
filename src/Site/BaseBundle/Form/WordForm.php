@@ -11,8 +11,7 @@ class ThemeForm extends AbstractType {
   {
     $builder
       ->add('theme', null, array('label' => 'theme.name',))
-      ->add('source', null, array('label' => 'word.source'))
-      ->add('target', null, array('label' => 'word.translation'))
+
     ;
   }
 

@@ -2,6 +2,7 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: uploader.yml }
+    - { resource: translators.yml }
 
 framework:
     #esi:             ~
@@ -17,7 +18,8 @@ framework:
     default_locale:  "%locale%"
     trust_proxy_headers: false # Deprecated in 2.0; will be removed in 2.3 (used trusted_proxies instead)
     trusted_proxies: ~
-    session:         ~
+    session:
+      save_path:            %kernel.cache_dir%/../sessions
 
 parameters:
     assetic.filter.compass.images_dir: %kernel.root_dir%/../web/images
@@ -85,8 +87,6 @@ sonata_block:
     blocks:
         sonata.admin.block.admin_list:
             contexts:   [admin]
-        sonata.block.service.text:
-        sonata.block.service.rss:
 stof_doctrine_extensions:
   orm:
     default:

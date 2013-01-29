@@ -1,0 +1,5 @@
+word:
+  new: Новое слово в теме "%theme%"
+  source: Исходное слово
+  target: Перевод
+  findtranslation: Найти перевод

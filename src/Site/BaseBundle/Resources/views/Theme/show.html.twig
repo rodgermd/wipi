@@ -6,6 +6,6 @@
     {% for word in words %}
       <li>{{ 'word' }}</li>
       {% endfor %}
-    <li><a href="{{ path('word.new.theme', { slug: theme.slug }) }}">{{ new_word | word_thumbnail }}</a></li>
+    <li><a href="{{ path('word.new', { slug: theme.slug }) }}">{{ new_word | word_thumbnail }}</a></li>
   </ul>
 {% endblock body %}

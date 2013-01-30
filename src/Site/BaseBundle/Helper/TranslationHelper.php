@@ -10,6 +10,11 @@ class TranslationHelper
   protected $container;
   protected $translator_params;
 
+  const GOOGLE = 'google';
+  const YANDEX = 'yandex';
+
+  public static $translators = array(self::GOOGLE, self::YANDEX);
+
   public function __construct(Container $container)
   {
     $this->container         = $container;
@@ -22,11 +27,11 @@ class TranslationHelper
 
     $result = array();
     try {
-      $result['google'] = $this->translate_google($source_culture, $target_culture, $word);
+      $result[self::GOOGLE] = $this->translate_google($source_culture, $target_culture, $word);
     }
     catch (TranslationException $e) {}
     try {
-      $result['yandex'] = $this->translate_yandex($source_culture, $target_culture, $word);
+      $result[self::YANDEX] = $this->translate_yandex($source_culture, $target_culture, $word);
     }
     catch (TranslationException $e) {}
 

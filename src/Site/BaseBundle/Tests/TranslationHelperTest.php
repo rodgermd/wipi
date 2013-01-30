@@ -84,5 +84,9 @@ class TranslationHelperTest extends WebTestCase
     {
       $this->assertTrue($e instanceof \Site\BaseBundle\Helper\Exception\TranslationException);
     }
+
+    // try get helper response
+    $result = $service->find('en', 'ru', 'Cup');
+    $this->assertCount(2, $result);
   }
 }

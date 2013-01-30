@@ -1,3 +1,4 @@
 parameters:
-  bing_key: BJkwhGh3pWqIQZJQZ9mMtr+TDtKg5g/jIDLL92ZQki8=
-  bing_translate_app_id: TMVf9dWb_kHd1hT82h-mpI-qrPnHyrLZwXol6Nj0QRdw*
+  provider_keys:
+    google:
+      api_key: AIzaSyBgxZoAWkSatUSoIRL3p6TJTQtMOgQlBVs

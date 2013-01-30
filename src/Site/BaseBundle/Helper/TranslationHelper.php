@@ -8,19 +8,29 @@ class TranslationHelper
 {
   protected $cached_results = array();
   protected $container;
-  protected $bing_appid;
+  protected $translator_params;
 
   public function __construct(Container $container)
   {
-    $this->container  = $container;
-    $this->bing_appid = $container->getParameter('bing_translate_app_id');
+    $this->container         = $container;
+    $this->translator_params = $container->getParameter('provider_keys');
   }
 
   public function find($source_culture, $target_culture, $word)
   {
     if (@$this->cached_results[$source_culture][$target_culture][$word]) return $this->cached_results[$word];
 
-    return $this->cached_results[$source_culture][$target_culture][$word] = $this->translate_bing($source_culture, $target_culture, $word);
+    $result = array();
+    try {
+      $result['google'] = $this->translate_google($source_culture, $target_culture, $word);
+    }
+    catch (TranslationException $e) {}
+    try {
+      $result['yandex'] = $this->translate_yandex($source_culture, $target_culture, $word);
+    }
+    catch (TranslationException $e) {}
+
+    return $this->cached_results[$source_culture][$target_culture][$word] = $result;
   }
 
   /**
@@ -31,34 +41,53 @@ class TranslationHelper
    * @return mixed
    * @throws Exception\TranslationException
    */
-  public function translate_bing($source_culture, $target_culture, $word)
+  public function translate_google($source_culture, $target_culture, $word)
   {
-    $url = "http://api.microsofttranslator.com/v2/ajax.svc/TranslateArray?appid=%appid%&from=\"%from%\"&to=\"%to%\"&texts=[\"%word%\"]";
-    $url = strtr($url, array(
-      '%appid%' => $this->bing_appid,
-      '%from%'  => $source_culture,
-      '%to%'    => $target_culture,
-      '%word%'  => urlencode($word)
+    $url = strtr("https://www.googleapis.com/language/translate/v2?key=%api_key%&q=%word%&source=%from%&target=%to%", array(
+      '%api_key%' => $this->translator_params['google']['api_key'],
+      '%from%'    => $source_culture,
+      '%to%'      => $target_culture,
+      '%word%'    => urlencode($word)
     ));
 
+    $result = $this->query($url);
+
+    $parsed = array_filter(array_map(function ($e) { return trim($e['translatedText']); }, $result['data']['translations']));
+    if (!count($parsed)) throw new TranslationException('No results');
+
+    return $parsed;
+  }
+
+  public function translate_yandex($source_culture, $target_culture, $word)
+  {
+    $url    = "http://translate.yandex.net/api/v1/tr.json/translate";
+    $result = $this->query($url, array(
+      CURLOPT_POST       => true,
+      CURLOPT_POSTFIELDS => array(
+        'text'   => $word,
+        'lang'   => strtr("%from%-%to%", array('%from%' => $source_culture, '%to%' => $target_culture)),
+        'format' => 'json')));
+    $parsed = array_filter(array_map('trim', $result['text']));
+
+    if (!count($parsed)) throw new TranslationException('No results');
+
+    return $parsed;
+  }
+
+  protected function query($url, array $options = array())
+  {
     $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+    $options = array(
+      CURLOPT_URL            => $url,
+      CURLOPT_RETURNTRANSFER => TRUE
+    ) + $options;
+    curl_setopt_array($ch, $options);
     $response = curl_exec($ch);
     $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     curl_close($ch);
 
-    if ($httpCode == 200) {
-      $result = json_decode($response, true);
-      preg_match('#TranslatedText":"(?P<match>[^\"]+)#', $response, $matches);
-      if (@$matches['match']) {
-        return $matches['match'];
-      } else {
-        throw new TranslationException('No translations');
-      }
-    }
-
-    throw new TranslationException('Error received: ' . $response);
+    if ($httpCode != 200) throw new TranslationException('Error received: ' . $response);
+    return json_decode($response, true);
   }
 
 }

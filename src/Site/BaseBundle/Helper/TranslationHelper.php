@@ -21,6 +21,13 @@ class TranslationHelper
     $this->translator_params = $container->getParameter('provider_keys');
   }
 
+  /**
+   * Finds word translation
+   * @param $source_culture
+   * @param $target_culture
+   * @param $word
+   * @return array
+   */
   public function find($source_culture, $target_culture, $word)
   {
     if (@$this->cached_results[$source_culture][$target_culture][$word]) return $this->cached_results[$word];
@@ -36,6 +43,25 @@ class TranslationHelper
     catch (TranslationException $e) {}
 
     return $this->cached_results[$source_culture][$target_culture][$word] = $result;
+  }
+
+  /**
+   * Finds word translations and groups them by translated word
+   * @param $source_culture
+   * @param $target_culture
+   * @param $word
+   * @return array
+   */
+  public function find_group_by_word($source_culture, $target_culture, $word)
+  {
+    $found = $this->find($source_culture, $target_culture, $word);
+    $result = array();
+    foreach($found as $service => $values) {
+      foreach($values as $word) {
+        @$result[strtolower($word)][] = $service;
+      }
+    }
+    return $result;
   }
 
   /**

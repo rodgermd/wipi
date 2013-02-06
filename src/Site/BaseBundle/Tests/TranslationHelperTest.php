@@ -88,5 +88,12 @@ class TranslationHelperTest extends WebTestCase
     // try get helper response
     $result = $service->find('en', 'ru', 'Cup');
     $this->assertCount(2, $result);
+
+    // check grouping
+    $result = $service->find_group_by_word('ru', 'en', 'мир');
+    $this->assertCount(1, $result);
+    $this->assertArrayHasKey('world', $result);
+    $this->assertCount(2, $result['world']);
+    $this->assertCount(0, array_diff($result['world'], array('google', 'yandex')));
   }
 }

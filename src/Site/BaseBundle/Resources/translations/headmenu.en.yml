@@ -1,0 +1,5 @@
+themes:
+  main: Themes
+  create:
+      theme: New theme
+      word: New word

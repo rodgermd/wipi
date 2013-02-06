@@ -1,0 +1,8 @@
+{% extends "::base.html.twig" %}
+
+{% block stylesheets %}
+  {{ parent() }}
+  {% stylesheets filter="compass, ?yui_css" "@SiteBaseBundle/Resources/assets/css/word_forms.scss" %}
+  <link rel="stylesheet" href="{{ asset_url }}"/>
+  {% endstylesheets %}
+{% endblock stylesheets %}

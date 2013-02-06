@@ -1,24 +1,42 @@
-{% extends "::base.html.twig" %}
+{% extends "SiteBaseBundle:Word:word_base.html.twig" %}
 
 {% block body %}
   {% form_theme form "RodgermdSfToolsBundle:Form:bootstrap_control_groups_theme.html.twig" %}
-  <form action="{{ path('word.new', { slug: theme.slug}) }}" method="POST" class="form-horizontal word-form word-form-step1">
+  <form action="{{ path('word.new', { slug: theme.slug}) }}" method="POST"
+        class="form-horizontal word-form word-form-step1">
     <div class="modal inline">
       <div class="modal-header">
-        <h3>{{ 'word.new' | trans({ '%theme%': theme }, 'WordForms') }}</h3>
+        <h3>{{ 'word.new' | trans({
+        '%theme%': theme,
+        '%source%' : theme.sourceCulture,
+        '%target%' : theme.targetCulture }, 'word_forms') }}</h3>
       </div>
       <div class="modal-body">
         <div class="word-source-container">
-        {{ form_row(form.source) }}
-          <button class="btn btn-success" data-target="{{ path() }}">{{ 'word.findtranslation' | trans({}, 'WordForms') }}</button>
+
+          <div class="control-group">
+            {{ form_label(form.source) }}
+            <div class="controls has-extra">
+              {{ form_errors(form.source) }}
+              {{ form_widget(form.source) }}
+              <a class="btn btn-primary has-tooltip tooltip-at-bottom finds-translation" onclick="return false;"
+                 data-loading-text="..."
+                 href="{{ path('word.find_translation', { slug: theme.slug }) }}"
+                 title="{{ 'word.findtranslation' | trans({}, 'word_forms') }}">
+                <i class="icon-search icon-white"></i>
+              </a>
+            </div>
+          </div>
+          <div class="translations-target"></div>
         </div>
+
         <div class="word-target-container">
           {{ form_row(form.target) }}
         </div>
         {{ form_rest(form) }}
       </div>
       <div class="modal-footer">
-        <input type="submit" value="{{ 'word.create' | trans }}" class="btn btn-success"/>
+        <input type="submit" value="{{ 'word.create' | trans({}, 'word_forms') }}" class="btn btn-success"/>
       </div>
   </form>
 
@@ -26,5 +44,5 @@
 
 {% block javascripts %}
   {{ parent() }}
-  <script type="text/javascript" src="{{ asset('@SiteBaseBundle/Resources/public/js/word-form-step1.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('bundles/sitebase/js/word-form-step1.js') }}"></script>
 {% endblock javascripts %}

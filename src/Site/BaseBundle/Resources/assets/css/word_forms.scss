@@ -1,0 +1,33 @@
+@import "compass";
+
+.translations-target {
+  ul {
+    margin: 10px 0;
+    padding: 0;
+    li {
+      list-style: none;
+      padding: 10px;
+      background-color: #f3f3f3;
+      &:hover {
+        background-color: #ccc;
+      }
+      .translated-word {
+        @include inline-block;
+        padding: 5px 10px;
+        cursor: pointer;
+        font-weight: bold;
+        min-width: 100px;
+      }
+      .translator-service {
+        @include inline-block;
+        margin-left: 5px;
+      }
+      .service-google:before {
+        content: 'google';
+      }
+      .service-yandex:before {
+        content: 'yandex';
+      }
+    }
+  }
+}

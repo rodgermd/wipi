@@ -16,6 +16,18 @@ use Site\BaseBundle\Form\ThemeForm;
  * @Route("/theme")
  */
 class ThemeController extends Controller {
+
+  /**
+   * Shows themes accessible to the current user
+   * @Route("/", name="themes.index")
+   * @Secure(roles="ROLE_USER")
+   * @Template
+   */
+  public function indexAction()
+  {
+    return array('themes' => $this->getUser()->getThemes());
+  }
+
   /**
    * New theme action
    * @Route("/new", name="theme.new")

@@ -1,0 +1,7 @@
+word:
+  source: Source
+  translation: Translation
+  create: Create
+  target: Translation
+  new: New word in theme "%theme%" [%source% -> %target%]
+  findtranslation: Find translation

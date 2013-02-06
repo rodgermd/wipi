@@ -3,6 +3,10 @@ theme:
   new: Новая тема
   name: Название
 
+themes:
+  index:
+    title: "Themes"
+
 culture:
   source: Исходный язык
   target: Конечный язык

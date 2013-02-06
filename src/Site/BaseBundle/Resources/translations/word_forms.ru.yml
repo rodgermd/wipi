@@ -1,5 +1,6 @@
 word:
-  new: Новое слово в теме "%theme%"
   source: Исходное слово
   target: Перевод
+  new: Новое слово в теме "%theme%" [%source% -> %target%]
+  create: Создать
   findtranslation: Найти перевод

@@ -10,8 +10,8 @@ class WordStep1Form extends AbstractType
   public function buildForm(FormBuilderInterface $builder, array $options)
   {
     $builder
-      ->add('source', null, array('label' => 'word.source', 'translation_domain' => 'WordForms'))
-      ->add('target', null, array('label' => 'word.target', 'translation_domain' => 'WordForms',))
+      ->add('source', null, array('label' => 'word.source', 'translation_domain' => 'word_forms'))
+      ->add('target', null, array('label' => 'word.target', 'translation_domain' => 'word_forms',))
     ;
   }
 

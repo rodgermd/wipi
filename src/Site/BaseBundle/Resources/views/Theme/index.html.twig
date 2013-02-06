@@ -1,0 +1,11 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+  <h2>{{ 'themes.index.title' | trans }}</h2>
+  <ul id="themes-list">
+    {% for theme in themes %}
+      <li><a href="{{ path('theme.show', { slug: theme.slug }) }}">{{ theme }}</a></li>
+    {% endfor %}
+    <li><a href="{{ path('theme.new') }}">{{ 'theme.new' | trans }}</a></li>
+  </ul>
+{% endblock body %}

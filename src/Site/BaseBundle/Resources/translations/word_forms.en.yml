@@ -5,3 +5,5 @@ word:
   target: Translation
   new: New word in theme "%theme%" [%source% -> %target%]
   findtranslation: Find translation
+  buttons:
+    continue: continue

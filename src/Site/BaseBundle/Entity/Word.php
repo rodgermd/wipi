@@ -30,7 +30,7 @@ class Word
    * @var string
    *
    * @ORM\Column(name="source", type="string", length=100)
-   * @Assert\NotBlank
+   * @Assert\NotBlank(groups={"Default", "step1"})
    */
   private $source;
 
@@ -38,7 +38,7 @@ class Word
    * @var string
    *
    * @ORM\Column(name="target", type="string", length=100)
-   * @Assert\NotBlank
+   * @Assert\NotBlank(groups={"Default", "step1"})
    */
   private $target;
 
@@ -88,7 +88,7 @@ class Word
    * @var Theme $theme
    * @ORM\ManyToOne(targetEntity="Site\BaseBundle\Entity\Theme", inversedBy="words")
    * @ORM\JoinColumn(name="theme_id", referencedColumnName="id", onDelete="SET NULL")
-   * @Assert\NotBlank()
+   * @Assert\NotBlank(groups={"Default", "step1"})
    */
   private $theme;
 
@@ -133,7 +133,7 @@ class Word
    */
   public function setSource($source)
   {
-    $this->source = $source;
+    $this->source = mb_strtolower($source);
 
     return $this;
   }
@@ -156,7 +156,7 @@ class Word
    */
   public function setTarget($target)
   {
-    $this->target = $target;
+    $this->target = mb_strtolower($target);
 
     return $this;
   }
@@ -289,7 +289,7 @@ class Word
   /**
    * Get theme
    *
-   * @return Site\BaseBundle\Entity\Theme
+   * @return \Site\BaseBundle\Entity\Theme
    */
   public function getTheme()
   {

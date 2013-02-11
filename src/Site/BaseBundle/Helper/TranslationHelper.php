@@ -30,6 +30,8 @@ class TranslationHelper
    */
   public function find($source_culture, $target_culture, $word)
   {
+    $word = mb_strtolower($word);
+
     if (@$this->cached_results[$source_culture][$target_culture][$word]) return $this->cached_results[$word];
 
     $result = array();

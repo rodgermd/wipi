@@ -13,3 +13,9 @@ services:
   wipi.translator:
     class: Site\BaseBundle\Helper\TranslationHelper
     arguments: [@service_container]
+
+
+  wipi.word.steps_handler:
+    class: Site\BaseBundle\Form\Handler\WordStepsHandler
+    calls:
+      - [setContainer, [@service_container]]

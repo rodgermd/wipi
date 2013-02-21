@@ -35,7 +35,8 @@ class AppKernel extends Kernel
 
       new Site\BaseBundle\SiteBaseBundle(),
       new Rodgermd\SfToolsBundle\RodgermdSfToolsBundle(),
-            new Site\UserBundle\SiteUserBundle(),
+      new Rodgermd\CompassBundle\RodgermdCompassBundle(),
+      new Site\UserBundle\SiteUserBundle(),
     );
 
     if (in_array($this->getEnvironment(), array('dev', 'test'))) {

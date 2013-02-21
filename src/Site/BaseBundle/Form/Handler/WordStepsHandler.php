@@ -16,6 +16,7 @@ use Symfony\Component\Form\FormFactory;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Site\BaseBundle\Entity\User;
 use Site\BaseBundle\Form\Exception\StepValidationException;
+use Site\BaseBundle\Form\Exception\EmptySessionException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class WordStepsHandler implements ContainerAwareInterface
@@ -51,7 +52,13 @@ class WordStepsHandler implements ContainerAwareInterface
   {
     if (!$data) {
       $data = $this->getWordInstance();
+      try {
       call_user_func(array($this, 'load_step' . $type->getStep()), $data);
+      }
+      catch(EmptySessionException $e)
+      {
+        return new RedirectResponse($this->router->generate('homepage'));
+      }
     }
 
     $form = $this->form_factory->create($type, $data);
@@ -229,7 +236,9 @@ class WordStepsHandler implements ContainerAwareInterface
    */
   protected function getSessionData()
   {
-    return $this->session->get(self::$session_key);
+    $data = $this->session->get(self::$session_key);
+    if (empty($data)) throw new EmptySessionException();
+    return $data;
   }
 
   /**

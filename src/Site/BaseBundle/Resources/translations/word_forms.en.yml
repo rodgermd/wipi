@@ -6,4 +6,5 @@ word:
   new: New word in theme "%theme%" [%source% -> %target%]
   findtranslation: Find translation
   buttons:
-    continue: continue
+    continue: Continue
+    finish: save

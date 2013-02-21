@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class Step2Type extends Step1Type
+class Step3Type extends Step1Type
 {
   public function buildForm(FormBuilderInterface $builder, array $options)
   {

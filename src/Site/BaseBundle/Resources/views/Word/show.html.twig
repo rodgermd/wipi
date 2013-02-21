@@ -1,0 +1,30 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+  <table class="table">
+    <thead>
+    <tr>
+      <th>Variable</th>
+      <th>Value</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <th>Source</th>
+      <td>{{ word.source }}</td>
+    </tr>
+    <tr>
+      <th>Target</th>
+      <td>{{ word.target }}</td>
+    </tr>
+    <tr>
+      <th>Sound</th>
+      <td>{{ word.soundFilename }}</td>
+    </tr>
+    <tr>
+      <th>Image</th>
+      <td>{{ word.imageFilename }}</td>
+    </tr>
+    </tbody>
+  </table>
+{% endblock body %}

@@ -1,0 +1,10 @@
+{% extends "SiteBaseBundle:Word:new.html.twig" %}
+
+{% block form_rows %}
+  {{ form_widget(form) }}
+{% endblock form_rows %}
+
+{% block form_footer %}
+  <input type="submit" class="btn btn-success"
+         value="{% block form_submit %}{{ 'word.buttons.finish' | trans({}, 'word_forms') }}{% endblock form_submit %}"/>
+{% endblock form_footer %}

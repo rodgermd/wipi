@@ -18,12 +18,25 @@ use Site\BaseBundle\Form\Handler\WordStepsHandler;
 
 use Site\BaseBundle\Form\Steps\Step1Type;
 use Site\BaseBundle\Form\Steps\Step2Type;
+use Site\BaseBundle\Form\Steps\Step3Type;
 
 /**
  * @Route("/word")
  */
 class WordController extends Controller
 {
+
+  /**
+   * @Route("/show/{slug}", name="word.show", requirements={"slug"=".+"})
+   * @Template
+   * @param \Site\BaseBundle\Entity\Word $word
+   * @return array
+   */
+  public function showAction(Word $word)
+  {
+    return compact('word');
+  }
+
   /**
    * @Route("/new/based-on-theme/{slug}", name="word.new", requirements={"slug"=".+"})
    * @Template
@@ -38,12 +51,9 @@ class WordController extends Controller
     $word = $handler->getWordInstance();
     $word->setTheme($theme);
 
-    $result = $handler->process(new Step1Type(), $word);
-    if ($result === true) {
-      return $this->redirect($this->generateUrl('word.new.step2'));
-    }
+    $handler->cleanup();
 
-    return array('form' => $result->createView(), 'theme' => $theme);
+    return $handler->process(new Step1Type(), $word);
   }
 
   /**
@@ -55,11 +65,7 @@ class WordController extends Controller
   {
     /** @var WordStepsHandler $handler  */
     $handler = $this->get('wipi.word.steps_handler');
-    $result = $handler->process(new Step2Type());
-    if ($result === true) {
-      return $this->redirect($this->generateUrl('word.new.step3'));
-    }
-    return array('form' => $result->createView(), 'theme' => $result->getData()->getTheme());
+    return $handler->process(new Step2Type());
   }
 
   /**
@@ -69,13 +75,9 @@ class WordController extends Controller
    */
   public function word_new_step3Action()
   {
-    /** @var WordStepsHandler $handler  */
+    /** @var WordStepsHandler $handler */
     $handler = $this->get('wipi.word.steps_handler');
-    $result = $handler->process(new Step3Type());
-    if ($result === true) {
-      return $this->redirect($this->generateUrl('word.new.step4'));
-    }
-    return array('form' => $result->createView(), 'theme' => $result->getData()->getTheme());
+    return $handler->process(new Step3Type());
   }
 
 

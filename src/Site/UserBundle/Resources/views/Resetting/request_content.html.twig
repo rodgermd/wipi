@@ -1,23 +1,22 @@
-<form action="{{ path('fos_user_resetting_send_email') }}" method="POST"
-      class="fos_user_resetting_request form-horizontal">
-  <div class="modal">
-    <div class="modal-header">
-      <h3>{{ 'Reset password' | trans }}</h3>
-    </div>
-    <div class="modal-body">
-      <div class="control-group">
-        <label for="username"
-               class="control-label">{{ 'resetting.request.username'|trans({}, 'FOSUserBundle') }}</label>
+{% extends "::dialog.layout.html.twig" %}
 
-        <div class="controls">
-          {% if invalid_username is defined %}
-            <p>{{ 'resetting.request.invalid_username'|trans({'%username%': invalid_username}, 'FOSUserBundle') }}</p>
-          {% endif %}
-          <input type="text" id="username" name="username" required="required"/>
-        </div>
-      </div>
+{% block dialog_action %}{{ path('fos_user_resetting_send_email') }}{% endblock dialog_action %}
+{% block dialog_header %}{{ 'reset.dialog.request_header' | trans }}{% endblock dialog_header %}
+
+{% block dialog_body %}
+  <div class="control-group">
+    <label for="username"
+           class="control-label">{{ 'resetting.request.username'|trans({}, 'FOSUserBundle') }}</label>
+
+    <div class="controls">
+      {% if invalid_username is defined %}
+        <p>{{ 'resetting.request.invalid_username'|trans({'%username%': invalid_username}, 'FOSUserBundle') }}</p>
+      {% endif %}
+      <input type="text" id="username" name="username" required="required"/>
     </div>
-    <div class="modal-footer">
-      <button type="submit" class="btn btn-success">{{ 'resetting.request.submit'|trans({}, 'FOSUserBundle') }}</button>
-    </div>
-</form>
+  </div>
+{% endblock dialog_body %}
+
+{% block dialog_footer %}
+  <button type="submit" class="btn btn-success">{{ 'resetting.request.submit'|trans({}, 'FOSUserBundle') }}</button>
+{% endblock dialog_footer %}

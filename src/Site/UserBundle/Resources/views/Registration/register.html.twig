@@ -1,0 +1,12 @@
+{% extends "::dialog.layout.html.twig" %}
+
+{% block dialog_action %}{{ path('fos_user_registration_register') }}{% endblock dialog_action %}
+{% block dialog_header %}{{ 'register.dialog.header' | trans }}{% endblock dialog_header %}
+
+{% block dialog_body %}
+  {{ form_widget(form) }}
+{% endblock dialog_body %}
+
+{% block dialog_footer %}
+  <button type="submit" class="btn btn-success">{{ 'registration.submit'|trans({}, 'FOSUserBundle') }}</button>
+{% endblock dialog_footer %}

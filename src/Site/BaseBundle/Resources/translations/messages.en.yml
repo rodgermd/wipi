@@ -11,3 +11,7 @@ culture:
   source: Source culture
   target: Target culture
 
+
+login:
+  dialog:
+    header: Log in

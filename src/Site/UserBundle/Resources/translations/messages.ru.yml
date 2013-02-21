@@ -1,0 +1,12 @@
+login:
+  dialog:
+    header: Вход в систему
+
+reset:
+  dialog:
+    request_header: Сброс пароля
+    reset_header: Сброс пароля
+
+register:
+  dialog:
+    header: Регистрация

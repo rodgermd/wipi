@@ -1,0 +1,23 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+  {% if form is defined %}
+    {% form_theme form "RodgermdSfToolsBundle:Form:bootstrap_control_groups_theme.html.twig" %}
+  {% endif %}
+  <form class="form-horizontal" action="{% block dialog_action %}{% endblock dialog_action %}" method="post" {% if form is defined %}{{ form_enctype(form) }}{% endif %}>
+
+    <div class="modal">
+      <div class="modal-header">
+        <h3>{% block dialog_header %}{% endblock dialog_header %}</h3>
+      </div>
+      <div class="modal-body">
+        {% block dialog_body %}
+        {% endblock dialog_body %}
+      </div>
+      <div class="modal-footer">
+        {% block dialog_footer %}
+        {% endblock dialog_footer %}
+      </div>
+    </div>
+  </form>
+{% endblock body %}

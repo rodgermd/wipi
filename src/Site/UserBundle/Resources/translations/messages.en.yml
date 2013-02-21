@@ -1,0 +1,12 @@
+login:
+  dialog:
+    header: Log in
+
+reset:
+  dialog:
+    request_header: Reset password
+    reset_header: Reset password
+
+register:
+  dialog:
+    header: Registration

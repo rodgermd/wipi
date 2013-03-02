@@ -9,8 +9,8 @@
   "require":{
     "php":">=5.3.3",
     "symfony/symfony":"2.2.*",
-    "doctrine/orm":">=2.2.3,<2.4-dev",
-    "doctrine/doctrine-bundle": "1.2.*",
+    "doctrine/orm":"~2.2,>=2.2.3",
+    "doctrine/doctrine-bundle":"1.2.*",
     "twig/extensions":"1.0.*@dev",
     "symfony/assetic-bundle":"2.1.*",
     "symfony/swiftmailer-bundle":"2.2.*",
@@ -28,14 +28,14 @@
     "knplabs/knp-gaufrette-bundle":"dev-master",
     "doctrine/doctrine-fixtures-bundle":"dev-master",
 
-    "sonata-project/admin-bundle":"dev-master",
+    "sonata-project/admin-bundle":"2.2.x@dev",
     "sonata-project/doctrine-orm-admin-bundle":"dev-master",
     "sonata-project/cache-bundle":"dev-master",
     "sonata-project/intl-bundle":"dev-master",
     "rodgermd/sftools-bundle":"dev-master",
     "rodgermd/compass-bundle": "dev-master",
 
-    "twitter/bootstrap": "v2.2.2"
+    "twitter/bootstrap":"v2.2.2"
   },
   "scripts":{
     "post-install-cmd":[
@@ -55,6 +55,9 @@
   "extra":{
     "symfony-app-dir":"app",
     "symfony-web-dir":"web",
-    "symfony-assets-install":"symlink"
+    "symfony-assets-install":"symlink",
+    "branch-alias":{
+      "dev-master":"2.2-dev"
+    }
   }
 }

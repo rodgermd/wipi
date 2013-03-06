@@ -3,3 +3,5 @@
 {% block form_rows %}
   {{ form_widget(form) }}
 {% endblock form_rows %}
+
+{% block form_submit %}{{ 'word.buttons.finish' | trans({}, 'word_forms') }}{% endblock form_submit %}

@@ -101,7 +101,7 @@ class WordStepsHandler implements ContainerAwareInterface
    */
   protected function save_step1(Word $word)
   {
-    $this->replaceSessionData(array(
+    $this->setSessionData(array(
       'theme'  => $word->getTheme()->getId(),
       'source' => $word->getSource(),
       'target' => $word->getTarget(),
@@ -111,51 +111,12 @@ class WordStepsHandler implements ContainerAwareInterface
   }
 
   /**
-   * Loads step 2 data
+   * Loads step 2 file
    * @param \Site\BaseBundle\Entity\Word $word
    */
   protected function load_step2(Word $word)
   {
     $this->load_step1($word);
-
-    $data = $this->getSessionData();
-
-    if (array_key_exists('soundfile_name', $data) && $data['soundfile_name']) {
-      $stored_filename = $this->container->getParameter('wipi.temp_folders.soundfiles') . '/' . $data['soundfile_name'];
-      $uploaded        = new UploadedFile(
-        $stored_filename,
-        'uploaded-file.' . $data['soundfile_extension'],
-        null,
-        filesize($stored_filename));
-      $word->setSoundfile($uploaded);
-    }
-  }
-
-  /**
-   * Saves step 2 data
-   * @param \Site\BaseBundle\Entity\Word $word
-   */
-  protected function save_step2(Word $word)
-  {
-    $soundfile = $word->getSoundfile();
-    if ($soundfile) {
-      $soundfile->move($this->container->getParameter('wipi.temp_folders.soundfiles'), $soundfile->getFilename());
-    }
-    $this->replaceSessionData(array(
-      'soundfile_name'      => $soundfile ? $soundfile->getFilename() : null,
-      'soundfile_extension' => $soundfile ? $soundfile->getExtension() : null,
-    ));
-
-    return new RedirectResponse($this->router->generate('word.new.step3'));
-  }
-
-  /**
-   * Loads step 3 file
-   * @param \Site\BaseBundle\Entity\Word $word
-   */
-  protected function load_step3(Word $word)
-  {
-    $this->load_step2($word);
 
     $data = $this->getSessionData();
 
@@ -171,15 +132,56 @@ class WordStepsHandler implements ContainerAwareInterface
   }
 
   /**
-   * Saves step 3 data
+   * Saves step 2 data
    * @param \Site\BaseBundle\Entity\Word $word
+   * @return \Symfony\Component\HttpFoundation\RedirectResponse
    */
-  protected function save_step3(Word $word)
+  protected function save_step2(Word $word)
   {
     $this->save_object($word);
     $this->cleanup();
     $this->session->getFlashBag()->add('success', $this->container->get('translator')->trans('word.flashes.created', array('%word%' => $word->getSource()), 'word_forms'));
-    return new RedirectResponse($this->router->generate('word.show', array('slug' => $word->getSlug())));
+    return new RedirectResponse($this->router->generate('word.new.step4', array('slug' => $word->getSlug())));
+  }
+
+  /**
+   * Saves step 3 data
+   * @param \Site\BaseBundle\Entity\Word $word
+   * @return \Symfony\Component\HttpFoundation\RedirectResponse
+   */
+  protected function save_step3(Word $word)
+  {
+    $soundfile = $word->getSoundfile();
+    if ($soundfile) {
+      $soundfile->move($this->container->getParameter('wipi.temp_folders.soundfiles'), $soundfile->getFilename());
+    }
+    $this->replaceSessionData(array(
+      'soundfile_name'      => $soundfile ? $soundfile->getFilename() : null,
+      'soundfile_extension' => $soundfile ? $soundfile->getExtension() : null,
+    ));
+
+    return new RedirectResponse($this->router->generate('word.new.step4'));
+  }
+
+  /**
+   * Loads step 3 data
+   * @param \Site\BaseBundle\Entity\Word $word
+   */
+  protected function load_step3(Word $word)
+  {
+    $this->load_step2($word);
+
+    $data = $this->getSessionData();
+
+    if (array_key_exists('soundfile_name', $data) && $data['soundfile_name']) {
+      $stored_filename = $this->container->getParameter('wipi.temp_folders.soundfiles') . '/' . $data['soundfile_name'];
+      $uploaded        = new UploadedFile(
+        $stored_filename,
+        'uploaded-file.' . $data['soundfile_extension'],
+        null,
+        filesize($stored_filename));
+      $word->setSoundfile($uploaded);
+    }
   }
 
   /**

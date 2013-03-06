@@ -57,6 +57,12 @@ class Word
   private $sound_filename;
 
   /**
+   * @var string $note
+   * @ORM\Column(type="text", nullable=true)
+   */
+  private $note;
+
+  /**
    * @var string $slug
    * @Gedmo\Slug(handlers={
    * @Gedmo\SlugHandler(class="Gedmo\Sluggable\Handler\RelativeSlugHandler", options={
@@ -366,5 +372,24 @@ class Word
   public function getSoundfile()
   {
     return $this->soundfile;
+  }
+
+  /**
+   * @param string $note
+   * @return \Site\BaseBundle\Entity\Word
+   */
+  public function setNote($note = null)
+  {
+    $this->note = $note;
+
+    return $this;
+  }
+
+  /**
+   * @return string
+   */
+  public function getNote()
+  {
+    return $this->note;
   }
 }

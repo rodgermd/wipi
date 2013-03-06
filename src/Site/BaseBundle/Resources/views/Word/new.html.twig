@@ -2,6 +2,7 @@
 
 {% block dialog_form_class %}word-form word-form-step{{ form.vars.step }}{% endblock dialog_form_class %}
 
+
 {% block dialog_header %}{{ 'word.new' | trans({
 '%theme%': theme,
 '%source%' : theme.sourceCulture,
@@ -32,10 +33,6 @@
   {{ form_rest(form) }}
 {% endblock dialog_body %}
 
-{% block dialog_footer %}
-  <input type="submit" class="btn btn-success"
-         value="{% block form_submit %}{{ 'word.buttons.continue' | trans({}, 'word_forms') }}{% endblock form_submit %}"/>
-{% endblock dialog_footer %}
 
 {% block javascripts %}
   {{ parent() }}

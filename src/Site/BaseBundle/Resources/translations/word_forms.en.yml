@@ -1,10 +1,15 @@
 word:
   source: Source
-  translation: Translation
-  create: Create
   target: Translation
+  create: Create
   new: New word in theme "%theme%" [%source% -> %target%]
-  findtranslation: Find translation
   buttons:
+    findtranslation: Find translation
     continue: Continue
     finish: save
+
+navigation:
+  word: Word
+  image: Image
+  sound: Sound
+  notes: Notes

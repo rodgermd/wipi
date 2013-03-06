@@ -19,6 +19,7 @@ use Site\BaseBundle\Form\Handler\WordStepsHandler;
 use Site\BaseBundle\Form\Steps\Step1Type;
 use Site\BaseBundle\Form\Steps\Step2Type;
 use Site\BaseBundle\Form\Steps\Step3Type;
+use Site\BaseBundle\Form\Steps\Step4Type;
 
 /**
  * @Route("/word")
@@ -79,6 +80,18 @@ class WordController extends Controller
     $handler = $this->get('wipi.word.steps_handler');
     return $handler->process(new Step3Type());
   }
+  /**
+   * @Route("/new/step3", name="word.new.step3")
+   * @Template
+   * @Secure(roles="ROLE_USER")
+   */
+  public function word_new_step4Action()
+  {
+    /** @var WordStepsHandler $handler */
+    $handler = $this->get('wipi.word.steps_handler');
+    return $handler->process(new Step4Type());
+  }
+
 
 
   /**

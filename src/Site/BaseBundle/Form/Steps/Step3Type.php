@@ -10,7 +10,7 @@ class Step3Type extends Step1Type
 {
   public function buildForm(FormBuilderInterface $builder, array $options)
   {
-    $builder->add('image_file', 'file', array('data_class' => null, 'required' => false));
+    $builder->add('sound_file', 'file', array('data_class' => null, 'required' => false));
   }
 
   public function setDefaultOptions(OptionsResolverInterface $resolver)
@@ -27,7 +27,7 @@ class Step3Type extends Step1Type
    */
   public function getName()
   {
-    return 'word_image';
+    return 'word_sound';
   }
 
   public function getStep()

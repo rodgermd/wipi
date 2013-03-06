@@ -1,9 +1,15 @@
 word:
   source: Исходное слово
   target: Перевод
-  new: Новое слово в теме "%theme%" [%source% -> %target%]
   create: Создать
-  findtranslation: Найти перевод
+  new: Новое слово в теме "%theme%" [%source% -> %target%]
   buttons:
+    findtranslation: Найти перевод
     continue: Продолжить
     finish: Сохранить
+
+navigation:
+  word: Слово
+  image: Картинка
+  sound: Звук
+  notes: Заметки

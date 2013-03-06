@@ -1,5 +1,23 @@
 {% extends "::dialog.layout.html.twig" %}
 
+{% set word_step = form.vars.step | default(1) %}
+
+{% block dialog_footer %}
+  <div class="navbar">
+    <div class="navbar-inner">
+      <button type="submit" class="btn btn-success">
+        {% block form_submit %}{{ 'word.buttons.continue' | trans({}, 'word_forms') }}{% endblock form_submit %}
+      </button>
+      <ul class="nav">
+        <li{%  if word_step == 1 %} class="active"{% endif %}><a href="{{ path('word.new', { slug: theme.slug }) }}">{{ 'navigation.word' | trans({}, 'word_forms') }}</a></li>
+        <li{%  if word_step == 2 %} class="active"{% endif %}><a href="{{ path('word.new.step2') }}">{{ 'navigation.image' | trans({}, 'word_forms') }}</a></li>
+        <li{%  if word_step == 3 %} class="active"{% endif %}><a href="{{ path('word.new.step3') }}">{{ 'navigation.sound' | trans({}, 'word_forms') }}</a></li>
+        <li{%  if word_step == 4 %} class="active"{% endif %}><a href="{{ path('word.new.step4') }}">{{ 'navigation.notes' | trans({}, 'word_forms') }}</a></li>
+      </ul>
+    </div>
+  </div>
+{% endblock dialog_footer %}
+
 {% block stylesheets %}
   {{ parent() }}
   {% stylesheets filter="compass, ?yui_css" "@SiteBaseBundle/Resources/assets/css/word_forms.scss" %}

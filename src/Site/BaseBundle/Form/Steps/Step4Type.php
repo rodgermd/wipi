@@ -6,17 +6,17 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class Step2Type extends Step1Type
+class Step4Type extends Step1Type
 {
   public function buildForm(FormBuilderInterface $builder, array $options)
   {
-    $builder->add('image_file', 'file', array('data_class' => null, 'required' => false));
+    $builder->add('note', 'textarea', array('required' => false));
   }
 
   public function setDefaultOptions(OptionsResolverInterface $resolver)
   {
     $resolver->replaceDefaults(array(
-      'validation_groups' => 'step2'
+      'validation_groups' => 'step4'
     ));
   }
 
@@ -27,11 +27,11 @@ class Step2Type extends Step1Type
    */
   public function getName()
   {
-    return 'word_image';
+    return 'word_sound';
   }
 
   public function getStep()
   {
-    return 2;
+    return 4;
   }
 }

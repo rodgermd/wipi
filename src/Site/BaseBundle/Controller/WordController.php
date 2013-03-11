@@ -11,15 +11,14 @@ use JMS\SecurityExtraBundle\Annotation\Secure;
 use Site\BaseBundle\Helper\TranslationHelper;
 use Symfony\Component\HttpFoundation\Response;
 
+use Site\BaseBundle\Form\Word\WordNewForm;
+use Site\BaseBundle\Form\Word\WordEditForm;
+
 use Site\BaseBundle\Entity\Theme;
 use Site\BaseBundle\Entity\Word;
 
-use Site\BaseBundle\Form\Handler\WordStepsHandler;
+use Site\BaseBundle\Form\Handler\WordHandler;
 
-use Site\BaseBundle\Form\Steps\Step1Type;
-use Site\BaseBundle\Form\Steps\Step2Type;
-use Site\BaseBundle\Form\Steps\Step3Type;
-use Site\BaseBundle\Form\Steps\Step4Type;
 
 /**
  * @Route("/word")
@@ -39,7 +38,7 @@ class WordController extends Controller
   }
 
   /**
-   * @Route("/new/based-on-theme/{slug}", name="word.new", requirements={"slug"=".+"})
+   * @Route("/{slug}/new", name="word.new", requirements={"slug"=".+"})
    * @Template
    * @Secure(roles="ROLE_USER")
    * @param \Site\BaseBundle\Entity\Theme $theme
@@ -47,49 +46,26 @@ class WordController extends Controller
    */
   public function newAction(Theme $theme)
   {
-    /** @var WordStepsHandler $handler  */
-    $handler = $this->get('wipi.word.steps_handler');
-    $word = $handler->getWordInstance();
-    $word->setTheme($theme);
-
-    $handler->cleanup();
-
-    return $handler->process(new Step1Type(), $word);
+    /** @var WordHandler $handler  */
+    $handler = $this->get('wipi.word.form_handler');
+    $result = $handler->process($handler->generate_new_form($theme));
+    if ($result instanceof Response) return $result;
+    return array('form' => $result->createView(), 'theme' => $theme);
   }
 
   /**
-   * @Route("/new/step2", name="word.new.step2")
+   * @Route("/{slug}/edit", name="word.edit", requirements={"slug"=".+"})
    * @Template
-   * @Secure(roles="ROLE_USER")
+   * @param \Site\BaseBundle\Entity\Word $word
+   * @return \Symfony\Component\Form\FormInterface|\Symfony\Component\HttpFoundation\RedirectResponse
    */
-  public function word_new_step2Action()
+  public function editAction(Word $word)
   {
-    /** @var WordStepsHandler $handler  */
-    $handler = $this->get('wipi.word.steps_handler');
-    return $handler->process(new Step2Type());
-  }
-
-  /**
-   * @Route("/new/step3", name="word.new.step3")
-   * @Template
-   * @Secure(roles="ROLE_USER")
-   */
-  public function word_new_step3Action()
-  {
-    /** @var WordStepsHandler $handler */
-    $handler = $this->get('wipi.word.steps_handler');
-    return $handler->process(new Step3Type());
-  }
-  /**
-   * @Route("/new/step3", name="word.new.step3")
-   * @Template
-   * @Secure(roles="ROLE_USER")
-   */
-  public function word_new_step4Action()
-  {
-    /** @var WordStepsHandler $handler */
-    $handler = $this->get('wipi.word.steps_handler');
-    return $handler->process(new Step4Type());
+    /** @var WordHandler $handler  */
+    $handler = $this->get('wipi.word.form_handler');
+    $result = $handler->process($handler->generate_edit_form($word));
+    if ($result instanceof Response) return $result;
+    return array('form' => $result->createView(), 'word' => $word, 'theme' => $word->getTheme());
   }
 
 

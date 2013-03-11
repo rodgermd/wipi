@@ -1,0 +1,32 @@
+{% extends "SiteBaseBundle:Word:new.html.twig" %}
+
+{% block dialog_header %}{{ 'word.edit' | trans({'%word%': word.source}, 'word_forms') }}{% endblock dialog_header %}
+
+{% block dialog_body %}
+  {% block form_rows %}
+    <ul class="nav nav-tabs">
+      <li><a href="#word-translation" data-toggle="tab">{{ 'navigation.word' | trans({}, 'word_forms') }}</a></li>
+      <li class="active"><a href="#word-image" data-toggle="tab">{{ 'navigation.image' | trans({}, 'word_forms') }}</a></li>
+      <li><a href="#word-sound" data-toggle="tab">{{ 'navigation.sound' | trans({}, 'word_forms') }}</a></li>
+      <li><a href="#word-notes" data-toggle="tab">{{ 'navigation.notes' | trans({}, 'word_forms') }}</a></li>
+    </ul>
+
+    <div class="tab-content">
+    <div class="tab-pane" id="word-translation">
+      {% include "SiteBaseBundle:Word:_form_word_translation.html.twig" %}
+    </div>
+    <div class="tab-pane active" id="word-image">
+      {{ form_row(form.image_file) }}
+    </div>
+    <div class="tab-pane " id="word-sound">
+      {{ form_row(form.sound_file) }}
+    </div>
+    <div class="tab-pane" id="word-notes">
+      {{ form_row(form.note) }}
+    </div>
+    </div>
+  {% endblock form_rows %}
+  {{ form_rest(form) }}
+{% endblock dialog_body %}
+
+{% block form_submit %}{{ 'word.buttons.save' | trans({}, 'word_forms') }}{% endblock form_submit %}

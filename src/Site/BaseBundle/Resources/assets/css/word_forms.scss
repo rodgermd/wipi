@@ -38,4 +38,18 @@
       height: 20px;
     }
   }
+  #word-notes {
+    .control-label {
+      width: 70px;
+    }
+    .controls {
+      margin-left: 80px;
+    }
+    #word_note {
+      width: 435px;
+      height: 150px;
+      max-height: 300px;
+      resize: vertical;
+    }
+  }
 }

@@ -1,6 +1,6 @@
-{% extends "SiteBaseBundle:Word:word_base.html.twig" %}
+{% extends "::dialog.layout.html.twig" %}
 
-{% block dialog_form_class %}word-form word-form-step{{ form.vars.step }}{% endblock dialog_form_class %}
+{% block dialog_form_class %}word-form word-form-translation{% endblock dialog_form_class %}
 
 
 {% block dialog_header %}{{ 'word.new' | trans({
@@ -10,32 +10,25 @@
 
 {% block dialog_body %}
   {% block form_rows %}
-    <div class="word-source-container">
-
-      <div class="control-group">
-        {{ form_label(form.source) }}
-        <div class="controls has-extra">
-          {{ form_widget(form.source) }}
-          <a class="btn btn-primary has-tooltip tooltip-at-bottom finds-translation" onclick="return false;"
-             data-loading-text="..."
-             href="{{ path('word.find_translation', { slug: theme.slug }) }}"
-             title="{{ 'word.findtranslation' | trans({}, 'word_forms') }}">
-            <i class="icon-search icon-white"></i>
-          </a>
-          {{ form_errors(form.source) }}
-        </div>
-      </div>
-      <div class="translations-target"></div>
-    </div>
-
-    <div class="word-target-container">{{ form_row(form.target) }}</div>
+    {% include "SiteBaseBundle:Word:_form_word_translation.html.twig" %}
   {% endblock form_rows %}
   {{ form_rest(form) }}
 {% endblock dialog_body %}
 
+{% block dialog_footer %}
+  <button type="submit" class="btn btn-success">
+    {% block form_submit %}{{ 'word.buttons.continue' | trans({}, 'word_forms') }}{% endblock form_submit %}
+  </button>
+{% endblock dialog_footer %}
 
 {% block javascripts %}
   {{ parent() }}
-  <script type="text/javascript" src="{{ asset('bundles/sitebase/js/word-form-step1.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('bundles/sitebase/js/word-form.js') }}"></script>
 {% endblock javascripts %}
 
+{% block stylesheets %}
+  {{ parent() }}
+  {% stylesheets filter="compass, ?yui_css" "@SiteBaseBundle/Resources/assets/css/word_forms.scss" %}
+  <link rel="stylesheet" href="{{ asset_url }}"/>
+  {% endstylesheets %}
+{% endblock stylesheets %}

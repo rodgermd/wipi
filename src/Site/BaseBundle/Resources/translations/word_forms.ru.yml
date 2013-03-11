@@ -3,10 +3,11 @@ word:
   target: Перевод
   create: Создать
   new: Новое слово в теме "%theme%" [%source% -> %target%]
+  edit: Редактирование слова "%word%"
   buttons:
     findtranslation: Найти перевод
     continue: Продолжить
-    finish: Сохранить
+    save: Сохранить
 
 navigation:
   word: Слово

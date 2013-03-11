@@ -15,7 +15,6 @@ services:
     arguments: [@service_container]
 
 
-  wipi.word.steps_handler:
-    class: Site\BaseBundle\Form\Handler\WordStepsHandler
-    calls:
-      - [setContainer, [@service_container]]
+  wipi.word.form_handler:
+    class: Site\BaseBundle\Form\Handler\WordHandler
+    arguments: [@service_container]

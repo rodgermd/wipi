@@ -139,7 +139,7 @@ class Word
    */
   public function setSource($source)
   {
-    $this->source = mb_strtolower($source);
+    $this->source = mb_strtolower($source, 'UTF-8');
 
     return $this;
   }
@@ -162,7 +162,7 @@ class Word
    */
   public function setTarget($target)
   {
-    $this->target = mb_strtolower($target);
+    $this->target = mb_strtolower($target, 'UTF-8');
 
     return $this;
   }

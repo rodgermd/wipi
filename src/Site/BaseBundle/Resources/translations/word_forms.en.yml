@@ -3,10 +3,11 @@ word:
   target: Translation
   create: Create
   new: New word in theme "%theme%" [%source% -> %target%]
+  edit: Edit word "%word%"
   buttons:
     findtranslation: Find translation
     continue: Continue
-    finish: save
+    save: save
 
 navigation:
   word: Word

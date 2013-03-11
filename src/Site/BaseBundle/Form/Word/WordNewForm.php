@@ -1,24 +1,29 @@
 <?php
 
-namespace Site\BaseBundle\Form\Steps;
+namespace Site\BaseBundle\Form\Word;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class Step2Type extends Step1Type
-{
+class WordNewForm extends AbstractType {
+
   public function buildForm(FormBuilderInterface $builder, array $options)
   {
-    $builder->add('image_file', 'file', array('data_class' => null, 'required' => false));
+    $builder
+      ->add('source', null, array('label' => 'word.source', 'translation_domain' => 'word_forms',))
+      ->add('target', null, array('label' => 'word.target', 'translation_domain' => 'word_forms',));
+    ;
   }
 
   public function setDefaultOptions(OptionsResolverInterface $resolver)
   {
     $resolver->replaceDefaults(array(
-      'validation_groups' => 'step2'
+      'data_class'        => 'Site\BaseBundle\Entity\Word',
+      'validation_groups' => 'step1'
     ));
   }
+
 
   /**
    * Returns the name of this type.
@@ -27,11 +32,6 @@ class Step2Type extends Step1Type
    */
   public function getName()
   {
-    return 'word_image';
-  }
-
-  public function getStep()
-  {
-    return 2;
+    return 'word';
   }
 }

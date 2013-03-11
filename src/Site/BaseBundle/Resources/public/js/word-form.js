@@ -1,8 +1,23 @@
-$.fn.word_form_step1 = function () {
+$.fn.word_form = function() {
   var $f = this;
-  var source_container = $('.word-source-container', $f);
+  var $obj;
+
+  $obj = {
+    init: function() {
+      $('.word-translation-container', $f).word_form_translation();
+    }
+  };
+
+  $obj.init();
+
+  return this;
+}
+
+$.fn.word_form_translation = function () {
+  var $h = this;
+  var source_container = $('.word-source-container', $h);
   var source_word = $('input[name*=source]', source_container);
-  var translated_word = $('input[name*=target]', $f);
+  var translated_word = $('input[name*=target]', $h);
   var searcher = $('.finds-translation', source_container);
   var translations_container = $('.translations-target', source_container);
   var loading_class = 'loading';
@@ -67,5 +82,5 @@ $.fn.word_form_step1 = function () {
 };
 
 $(function () {
-  $('form.word-form-step1').word_form_step1()
+  $('form.word-form').word_form()
 });

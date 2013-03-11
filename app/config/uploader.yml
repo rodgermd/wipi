@@ -29,11 +29,12 @@ vich_uploader:
 
 liip_imagine:
   driver: imagick
-
+  data_root: %kernel.root_dir%/../storage
   filter_sets:
     word_thumbnail:
+
       filters:
         thumbnail: { size: [50, 50], mode: outbound }
     word_edit_source:
       filters:
-        thumbnail: { size: [400, 200], mode: inset }
+        thumbnail: { size: [530, 250], mode: inset }

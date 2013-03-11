@@ -23,13 +23,17 @@
 
 {% block javascripts %}
   {{ parent() }}
+  <script type="text/javascript" src="{{ asset('bundles/sitebase/jquery.form/jquery.form.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('bundles/sitebase/jcrop/js/jquery.Jcrop.min.js ') }}"></script>
   <script type="text/javascript" src="{{ asset('bundles/sitebase/js/word-form.js') }}"></script>
-  <script type="text/javascript" src="{{ asset('jquery.form/jquery.form.js') }}"></script>
 {% endblock javascripts %}
 
 {% block stylesheets %}
   {{ parent() }}
-  {% stylesheets filter="compass, ?yui_css" "@SiteBaseBundle/Resources/assets/css/word_forms.scss" %}
+  {% stylesheets
+  filter="compass, ?yui_css"
+  "@SiteBaseBundle/Resources/assets/css/word_forms.scss" %}
   <link rel="stylesheet" href="{{ asset_url }}"/>
   {% endstylesheets %}
+  <link rel="stylesheet" href="/bundles/sitebase/jcrop/css/jquery.Jcrop.min.css"/>
 {% endblock stylesheets %}

@@ -11,8 +11,8 @@ class WordEditForm extends WordNewForm
     parent::buildForm($builder, $options);
 
     $builder
-      ->add('image_file', 'file', array('data_class' => null, 'required' => false))
-      ->add('sound_file', 'file', array('data_class' => null, 'required' => false))
+      ->add('imagefile', 'file', array('data_class'=> 'Symfony\Component\HttpFoundation\File\File', 'required' => false))
+      ->add('soundfile', 'file', array('data_class' => null, 'required' => false))
       ->add('note', 'textarea', array('required' => false))
     ;
   }

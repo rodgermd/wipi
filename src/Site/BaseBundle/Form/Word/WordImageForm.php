@@ -8,18 +8,9 @@ class WordImageForm extends WordEditForm
 {
   public function buildForm(FormBuilderInterface $builder, array $options)
   {
-    parent::buildForm($builder, $options);
-
-    foreach($builder->all() as $name => $field)
-    {
-      if ($name == 'image_file') {
-        $field->setAttribute('required', true);
-      }
-      else {
-        $field->setAttribute('property_path', false);
-      }
-    }
-
+    $builder->add('imagefile', 'file', array(
+      'data_class'=> 'Symfony\Component\HttpFoundation\File\File',
+      'required' => true));
   }
 
   public function setDefaultOptions(OptionsResolverInterface $resolver)

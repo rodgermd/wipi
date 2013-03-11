@@ -346,7 +346,10 @@ class Word
    */
   public function setImagefile(UploadedFile $file)
   {
-    $this->imagefile = $file;
+    $this->updated_at = null;
+    $this->imagefile  = $file;
+
+    return $this;
   }
 
   /**
@@ -364,7 +367,9 @@ class Word
    */
   public function setSoundfile(UploadedFile $file)
   {
-    $this->soundfile = $file;
+    $this->updated_at = null;
+    $this->soundfile  = $file;
+    return $this;
   }
 
   /**

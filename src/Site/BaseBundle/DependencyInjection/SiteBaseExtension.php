@@ -24,9 +24,5 @@ class SiteBaseExtension extends Extension
     $loader->load('parameters.yml');
 
     $configuration = new Configuration();
-    $config        = $this->processConfiguration($configuration, $configs);
-
-    $container->setParameter('wipi.temp_folders.soundfiles', $config['temp_folders']['soundfiles']);
-    $container->setParameter('wipi.temp_folders.imagefiles', $config['temp_folders']['imagefiles']);
   }
 }

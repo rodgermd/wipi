@@ -1,6 +1,10 @@
-<div class="word-image-container" data-source="{{ path('word.upload.image', {slug: word.slug}) }}">
-  {% if word | is_uploaded('image_file') %}
-    {{ word | uploaded_image('word_edit_source', 'image_file') }}
+{% form_theme form "RodgermdSfToolsBundle:Form:bootstrap_control_groups_theme.html.twig" %}
+<div class="word-image-container"
+     data-source="{{ path('word.upload.image', {slug: word.slug}) }}" {{ form_enctype(form) }}>
+  {% if word | is_uploaded('imagefile') %}
+    <div class="crop-container">
+      {{ word | uploaded_image('word_edit_source', 'imagefile') }}
+    </div>
   {% endif %}
-  {{ form_row(form.image_file) }}
+  {{ form_row(form.imagefile) }}
 </div>

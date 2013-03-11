@@ -20,16 +20,6 @@ class Configuration implements ConfigurationInterface
     $treeBuilder = new TreeBuilder();
     $rootNode    = $treeBuilder->root('wipi');
 
-    $rootNode->children()
-      ->arrayNode('temp_folders')
-      ->addDefaultsIfNotSet()
-      ->canBeUnset()
-      ->children()
-      ->scalarNode('soundfiles')->defaultValue(__DIR__ . '/../../../../temporal_uploads/sounds')->end()
-      ->scalarNode('imagefiles')->defaultValue(__DIR__ . '/../../../../temporal_uploads/images')->end()
-      ->end()
-      ->end();
-
 
     return $treeBuilder;
   }

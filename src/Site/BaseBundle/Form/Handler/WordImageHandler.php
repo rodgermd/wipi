@@ -10,6 +10,7 @@ class WordImageHandler extends DefaultFormHandler
 {
   public function process_separate_image_upload(Word $word)
   {
+    $this->em->initializeObject($word->getTheme());
     if (!$word->getUser()->equals($this->user)) return $this->returnForbidden($word);
     return $this->process($this->form_factory->create(new WordImageForm(), $word));
   }

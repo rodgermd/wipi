@@ -1,3 +1,6 @@
-[submodule "web/jquery.form"]
-	path = web/jquery.form
-	url = git@github.com:malsup/form.git
+[submodule "src/Site/BaseBundle/Resources/public/jcrop"]
+	path = src/Site/BaseBundle/Resources/public/jcrop
+	url = git://github.com/tapmodo/Jcrop.git
+[submodule "src/Site/BaseBundle/Resources/public/jquery.form"]
+	path = src/Site/BaseBundle/Resources/public/jquery.form
+	url = git://github.com/malsup/form.git

@@ -343,8 +343,9 @@ class Word
   /**
    * Sets Imagefile
    * @param \Symfony\Component\HttpFoundation\File\UploadedFile $file
+   * @return \Site\BaseBundle\Entity\Word
    */
-  public function setImagefile(UploadedFile $file)
+  public function setImagefile(UploadedFile $file = null)
   {
     $this->updated_at = null;
     $this->imagefile  = $file;
@@ -364,8 +365,9 @@ class Word
   /**
    * Sets sound file
    * @param \Symfony\Component\HttpFoundation\File\UploadedFile $file
+   * @return \Site\BaseBundle\Entity\Word
    */
-  public function setSoundfile(UploadedFile $file)
+  public function setSoundfile(UploadedFile $file = null)
   {
     $this->updated_at = null;
     $this->soundfile  = $file;

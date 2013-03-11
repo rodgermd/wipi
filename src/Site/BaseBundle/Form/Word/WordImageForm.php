@@ -10,7 +10,7 @@ class WordImageForm extends WordEditForm
   {
     $builder->add('imagefile', 'file', array(
       'data_class'=> 'Symfony\Component\HttpFoundation\File\File',
-      'required' => true));
+      'required' => false));
   }
 
   public function setDefaultOptions(OptionsResolverInterface $resolver)

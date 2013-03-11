@@ -9,7 +9,7 @@
   "require":{
     "php":">=5.3.3",
     "symfony/symfony":"2.2.*",
-    "doctrine/orm":"~2.2,>=2.2.3",
+    "doctrine/orm":"2.3.x-dev",
     "doctrine/doctrine-bundle":"1.2.*",
     "twig/extensions":"1.0.*@dev",
     "symfony/assetic-bundle":"2.1.*",
@@ -35,7 +35,7 @@
     "rodgermd/sftools-bundle":"dev-master",
     "rodgermd/compass-bundle": "dev-master",
 
-    "twitter/bootstrap":"v2.2.2"
+    "twitter/bootstrap":"dev-master"
   },
   "scripts":{
     "post-install-cmd":[

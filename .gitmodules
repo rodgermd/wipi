@@ -1,0 +1,3 @@
+[submodule "web/jquery.form"]
+	path = web/jquery.form
+	url = git@github.com:malsup/form.git

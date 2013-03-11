@@ -199,4 +199,14 @@ class User extends BaseUser
 
     return $this;
   }
+
+  /**
+   * Checks if users are equal
+   * @param User $user
+   * @return bool
+   */
+  public function equals(User $user)
+  {
+    return $this->id == $user->getId();
+  }
 }

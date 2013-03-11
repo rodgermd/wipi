@@ -25,6 +25,8 @@ class WordHandler extends DefaultFormHandler
    */
   public function generate_new_form(Theme $theme = null)
   {
+    if (!$theme->getUser()->equals($this->user)) return $this->returnForbidden($theme);
+
     $word = new Word();
     $word->setUser($this->user);
     $word->setTheme($theme);
@@ -41,4 +43,5 @@ class WordHandler extends DefaultFormHandler
   {
     return $this->form_factory->create(new WordEditForm(), $word);
   }
+
 }

@@ -30,7 +30,7 @@ class Word
    * @var string
    *
    * @ORM\Column(name="source", type="string", length=100)
-   * @Assert\NotBlank(groups={"Default", "step1"})
+   * @Assert\NotBlank(groups={"Default", "translation"})
    */
   private $source;
 
@@ -38,7 +38,7 @@ class Word
    * @var string
    *
    * @ORM\Column(name="target", type="string", length=100)
-   * @Assert\NotBlank(groups={"Default", "step1"})
+   * @Assert\NotBlank(groups={"Default", "translation"})
    */
   private $target;
 
@@ -46,6 +46,7 @@ class Word
    * @var string
    *
    * @ORM\Column(name="image_filename", type="string", length=50, nullable=true)
+   * @Assert\NotBlank()
    */
   private $image_filename;
 
@@ -107,7 +108,8 @@ class Word
   private $user;
 
   /**
-   * @Assert\File(maxSize="3M", mimeTypes={"image/png", "image/jpeg", "image/pjpeg"})
+   * @Assert\File(maxSize="3M", mimeTypes={"image/png", "image/jpeg", "image/pjpeg"}, groups={"single_image"})
+   * @Assert\NotNull(groups={"single_image"})
    * @Vich\UploadableField(mapping="word_image", fileNameProperty="image_filename")
    * @var UploadedFile $imagefile
    */

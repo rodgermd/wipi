@@ -1,0 +1,6 @@
+<div class="word-image-container" data-source="{{ path('word.upload.image', {slug: word.slug}) }}">
+  {% if word | is_uploaded('image_file') %}
+    {{ word | uploaded_image('word_edit_source', 'image_file') }}
+  {% endif %}
+  {{ form_row(form.image_file) }}
+</div>

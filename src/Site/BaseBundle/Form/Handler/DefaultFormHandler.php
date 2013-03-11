@@ -14,7 +14,8 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Site\BaseBundle\Entity\User;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-class DefaultFormHandler {
+class DefaultFormHandler
+{
   /** @var User $user */
   protected $user;
   /** @var EntityManager $em */
@@ -34,7 +35,7 @@ class DefaultFormHandler {
 
   public function __construct(Container $container)
   {
-    $this->container = $container;
+    $this->container    = $container;
     $this->em           = $container->get('doctrine')->getManager();
     $this->validator    = $container->get('validator');
     $this->user         = $container->get('security.context')->getToken()->getUser();
@@ -51,8 +52,7 @@ class DefaultFormHandler {
    */
   public function process(FormInterface $form)
   {
-    if ($this->request->isMethod('POST'))
-    {
+    if ($this->request->isMethod('POST')) {
       $form->bind($this->request);
       if ($form->isValid()) {
         $this->save($form);
@@ -91,6 +91,20 @@ class DefaultFormHandler {
   protected function returnNotValidated(FormInterface $form)
   {
     return $form;
+  }
+
+  /**
+   * Returns forbidden
+   * @param $object
+   */
+  public function returnForbidden($object)
+  {
+    $this->session->getFlashBag()->add('error',
+      $this->container->get('translator')->trans(
+        'You dont have permission to modify requested object: %object%',
+        array('%object%' => $object)));
+
+    return new RedirectResponse($this->router->generate('homepage'));
   }
 
 }

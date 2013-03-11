@@ -16,6 +16,7 @@
       {% include "SiteBaseBundle:Word:_form_word_translation.html.twig" %}
     </div>
     <div class="tab-pane active" id="word-image">
+      {% include "SiteBaseBundle:Word:_form_word_image.html.twig" %}
       {{ form_row(form.image_file) }}
     </div>
     <div class="tab-pane " id="word-sound">
@@ -30,3 +31,4 @@
 {% endblock dialog_body %}
 
 {% block form_submit %}{{ 'word.buttons.save' | trans({}, 'word_forms') }}{% endblock form_submit %}
+

@@ -20,7 +20,7 @@ class WordNewForm extends AbstractType {
   {
     $resolver->replaceDefaults(array(
       'data_class'        => 'Site\BaseBundle\Entity\Word',
-      'validation_groups' => 'step1'
+      'validation_groups' => 'translation'
     ));
   }
 

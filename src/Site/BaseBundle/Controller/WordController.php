@@ -18,6 +18,7 @@ use Site\BaseBundle\Entity\Theme;
 use Site\BaseBundle\Entity\Word;
 
 use Site\BaseBundle\Form\Handler\WordHandler;
+use Site\BaseBundle\Form\Handler\WordImageHandler;
 
 
 /**
@@ -64,6 +65,22 @@ class WordController extends Controller
     /** @var WordHandler $handler  */
     $handler = $this->get('wipi.word.form_handler');
     $result = $handler->process($handler->generate_edit_form($word));
+    if ($result instanceof Response) return $result;
+    return array('form' => $result->createView(), 'word' => $word, 'theme' => $word->getTheme());
+  }
+
+  /**
+   * Processes single image file upload
+   * @Route("{slug}/upload-image", name="word.upload.image", requirements={"slug"=".+", "_method"="POST"})
+   * @Template("SiteBaseBundle:Word:_form_word_image.html.twig")
+   * @param \Site\BaseBundle\Entity\Word $word
+   * @return array|\Symfony\Component\HttpFoundation\Response
+   */
+  public function submitImage(Word $word)
+  {
+    /** @var WordImageHandler $handler  */
+    $handler = $this->get('wipi.word.image_handler');
+    $result = $handler->process_separate_image_upload($word);
     if ($result instanceof Response) return $result;
     return array('form' => $result->createView(), 'word' => $word, 'theme' => $word->getTheme());
   }

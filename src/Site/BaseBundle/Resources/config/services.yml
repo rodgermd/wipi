@@ -18,3 +18,7 @@ services:
   wipi.word.form_handler:
     class: Site\BaseBundle\Form\Handler\WordHandler
     arguments: [@service_container]
+
+  wipi.word.image_handler:
+    class: Site\BaseBundle\Form\Handler\WordImageHandler
+    arguments: [@service_container]

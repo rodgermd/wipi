@@ -34,3 +34,6 @@ liip_imagine:
     word_thumbnail:
       filters:
         thumbnail: { size: [50, 50], mode: outbound }
+    word_edit_source:
+      filters:
+        thumbnail: { size: [400, 200], mode: inset }

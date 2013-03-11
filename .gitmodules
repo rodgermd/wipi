@@ -4,3 +4,4 @@
 [submodule "src/Site/BaseBundle/Resources/public/jquery.form"]
 	path = src/Site/BaseBundle/Resources/public/jquery.form
 	url = git://github.com/malsup/form.git
+

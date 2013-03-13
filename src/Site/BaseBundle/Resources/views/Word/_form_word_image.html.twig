@@ -4,6 +4,11 @@
   {% if word | is_uploaded('imagefile') %}
     <div class="crop-container">
       {{ word | uploaded_image('word_edit_source', 'imagefile') }}
+      {% if form.crop_data is defined %}
+        <div class="hidden">
+          {{ form_row(form.crop_data) }}
+        </div>
+      {% endif %}
     </div>
   {% endif %}
   {{ form_row(form.imagefile) }}

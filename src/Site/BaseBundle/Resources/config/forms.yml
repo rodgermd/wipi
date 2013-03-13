@@ -1,0 +1,5 @@
+services:
+  wipi.form.crop:
+    class: Site\BaseBundle\Form\Word\CropForm
+    tags:
+      - { name: form.type, alias: crop_options }

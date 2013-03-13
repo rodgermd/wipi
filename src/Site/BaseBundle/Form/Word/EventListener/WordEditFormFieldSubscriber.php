@@ -26,9 +26,8 @@ class WordEditFormFieldSubscriber implements EventSubscriberInterface
     }
 
     if ($data->getImageFilename()) {
-      $form->add('crop_data', 'crop_options', array(
+      $form->add('crop_options', 'crop_options', array(
         'required'      => false,
-        'mapped'       => null,
         'property_path' => null
       ));
     }

@@ -2,6 +2,7 @@
 
 namespace Site\BaseBundle\Controller;
 
+use Site\BaseBundle\Manager\ImageManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -49,7 +50,8 @@ class WordController extends Controller
   {
     /** @var WordHandler $handler  */
     $handler = $this->get('wipi.word.form_handler');
-    $result = $handler->process($handler->generate_new_form($theme));
+    $form = $handler->generate_new_form($theme);
+    $result = $handler->process($form);
     if ($result instanceof Response) return $result;
     return array('form' => $result->createView(), 'theme' => $theme);
   }
@@ -64,8 +66,18 @@ class WordController extends Controller
   {
     /** @var WordHandler $handler  */
     $handler = $this->get('wipi.word.form_handler');
-    $result = $handler->process($handler->generate_edit_form($word));
-    if ($result instanceof Response) return $result;
+    $form = $handler->generate_edit_form($word);
+    $result = $handler->process($form);
+    if ($result instanceof Response) {
+      /** @var ImageManager $image_manager  */
+      $image_manager = $this->get('wipi.manager.image');
+
+      $image_manager->crop_image(
+        $this->get('vich_uploader.templating.helper.uploader_helper')->asset($word, 'imagefile'),
+        $word->crop_options
+      );
+      return $result;
+    }
     return array('form' => $result->createView(), 'word' => $word, 'theme' => $word->getTheme());
   }
 

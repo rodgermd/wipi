@@ -23,6 +23,7 @@ class SiteBaseExtension extends Extension
     $loader->load('services.yml');
     $loader->load('parameters.yml');
     $loader->load('forms.yml');
+    $loader->load('managers.yml');
 
     $configuration = new Configuration();
   }

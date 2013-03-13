@@ -1,0 +1,5 @@
+services:
+  wipi.manager.image:
+    class: Site\BaseBundle\Manager\ImageManager
+    calls:
+      - [setContainer, [@service_container]]

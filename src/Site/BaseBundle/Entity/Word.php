@@ -122,6 +122,9 @@ class Word
    */
   private $soundfile;
 
+  /** @var array $crop_options */
+  public $crop_options = array();
+
 
   /**
    * Get id

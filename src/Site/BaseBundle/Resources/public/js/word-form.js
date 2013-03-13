@@ -124,15 +124,16 @@ $.fn.word_form_image = function () {
       }, 300);
     },
     update_crop_fields: function (c) {
-      $("[name*=crop_x1]", $h).val(c.x);
-      $("[name*=crop_x2]", $h).val(c.y);
-      $("[name*=crop_y1]", $h).val(c.x2);
-      $("[name*=crop_y2]", $h).val(c.y2);
+      console.log(field_x1)
+      field_x1.val(c.x);
+      field_y1.val(c.y);
+      field_x2.val(c.x2);
+      field_y2.val(c.y2);
     },
     getInitialSelect: function () {
       // if fields have values - use them as initial
-      if (field_x1 && field_x1.val() != '') {
-        console.log('use predefined')
+      if (field_x1 && field_x1.length && field_x1.val() != '') {
+        console.log('use predefined', field_x1)
         return [Math.floor(field_x1.val()), Math.floor(field_y1.val()), Math.floor(field_x2.val()), Math.floor(field_y2.val())];
       }
 
@@ -160,7 +161,6 @@ $.fn.word_form_image = function () {
         statusCode: {
           200: function (r) {
             $h.html($(r).html());
-
             $obj.init();
           }
         }

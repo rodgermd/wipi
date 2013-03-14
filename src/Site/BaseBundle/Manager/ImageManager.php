@@ -72,5 +72,7 @@ class ImageManager
     foreach (array('word_thumbnail', 'word_edit_source') as $filter) {
       $this->cache_manager->remove($old_filename, $filter);
     }
+    // unlink temp file
+    unlink($temp_file_name);
   }
 }

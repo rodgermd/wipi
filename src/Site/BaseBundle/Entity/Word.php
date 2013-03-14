@@ -86,6 +86,7 @@ class Word
 
   /**
    * @var \DateTime
+   * @Gedmo\Timestampable(on="create")
    * @Gedmo\Timestampable(on="update")
    * @ORM\Column(name="updated_at", type="datetime")
    */
@@ -350,7 +351,8 @@ class Word
    */
   public function setImagefile(UploadedFile $file = null)
   {
-    $this->updated_at = null;
+    $this->updated_at = new \DateTime('-1 minute');
+
     $this->imagefile  = $file;
 
     return $this;

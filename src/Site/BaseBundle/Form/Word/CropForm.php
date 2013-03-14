@@ -11,11 +11,10 @@ class CropForm extends AbstractType
   public function buildForm(FormBuilderInterface $builder, array $options)
   {
     $builder
-      ->add('crop_x1', 'hidden')
-      ->add('crop_y1', 'hidden')
-      ->add('crop_x2', 'hidden')
-      ->add('crop_y2', 'hidden')
-      ->add('image_width', 'hidden');
+      ->add('crop_x', 'hidden')
+      ->add('crop_y', 'hidden')
+      ->add('crop_w', 'hidden')
+      ->add('crop_h', 'hidden');
   }
 
   public function getName()

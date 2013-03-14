@@ -32,9 +32,13 @@ liip_imagine:
   data_root: %kernel.root_dir%/../storage
   filter_sets:
     word_thumbnail:
-
       filters:
         thumbnail: { size: [50, 50], mode: outbound }
     word_edit_source:
       filters:
         thumbnail: { size: [530, 250], mode: inset }
+    crop_on_upload:
+      filters:
+        thumbnail: { size: [530, 250], mode: inset }
+        crop: { start: [0, 0], size: [100, 100] }
+

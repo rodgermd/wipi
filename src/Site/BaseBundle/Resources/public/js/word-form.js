@@ -86,11 +86,10 @@ $.fn.word_form_image = function () {
   var $h = this;
   var $obj;
   var $image;
-  var field_x1;
-  var field_x2;
-  var field_y1;
-  var field_y2;
-  var field_iw;
+  var field_x;
+  var field_y;
+  var field_w;
+  var field_h;
 
   $obj = {
     init: function () {
@@ -98,11 +97,10 @@ $.fn.word_form_image = function () {
       $(':file', $h).on('change', $obj.submit_remote);
       if ($image.length) {
         $obj.load_jcrop();
-        field_x1 = $("[name*=crop_x1]", $h);
-        field_x2 = $("[name*=crop_x2]", $h);
-        field_y1 = $("[name*=crop_y1]", $h);
-        field_y2 = $("[name*=crop_y2]", $h);
-        field_iw = $("[name*=image_width]", $h);
+        field_x = $("[name*=crop_x]", $h);
+        field_y = $("[name*=crop_y]", $h);
+        field_w = $("[name*=crop_w]", $h);
+        field_h = $("[name*=crop_h]", $h);
       }
 
     },
@@ -116,7 +114,6 @@ $.fn.word_form_image = function () {
             onSelect: $obj.update_crop_fields,
             setSelect: $obj.getInitialSelect()
           });
-          field_iw.val($image.width());
         }
         else {
           $obj.load_jcrop();
@@ -124,17 +121,15 @@ $.fn.word_form_image = function () {
       }, 300);
     },
     update_crop_fields: function (c) {
-      console.log(field_x1)
-      field_x1.val(c.x);
-      field_y1.val(c.y);
-      field_x2.val(c.x2);
-      field_y2.val(c.y2);
+      field_x.val(c.x);
+      field_y.val(c.y);
+      field_w.val(c.w);
+      field_h.val(c.h);
     },
     getInitialSelect: function () {
       // if fields have values - use them as initial
-      if (field_x1 && field_x1.length && field_x1.val() != '') {
-        console.log('use predefined', field_x1)
-        return [Math.floor(field_x1.val()), Math.floor(field_y1.val()), Math.floor(field_x2.val()), Math.floor(field_y2.val())];
+      if (field_x && field_x.length && field_x.val() != '') {
+        return [field_x.val(), field_y.val(), field_x.val() + field_w.val(), field_y.val() + field_h.val()];
       }
 
       // else use maximum possible

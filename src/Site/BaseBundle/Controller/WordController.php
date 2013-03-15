@@ -4,6 +4,7 @@ namespace Site\BaseBundle\Controller;
 
 use Site\BaseBundle\Manager\ImageManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -20,6 +21,7 @@ use Site\BaseBundle\Entity\Word;
 
 use Site\BaseBundle\Form\Handler\WordHandler;
 use Site\BaseBundle\Form\Handler\WordImageHandler;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 
 /**
@@ -58,6 +60,7 @@ class WordController extends Controller
 
   /**
    * @Route("/{slug}/edit", name="word.edit", requirements={"slug"=".+"})
+   * @Secure(roles="ROLE_USER")
    * @Template
    * @param \Site\BaseBundle\Entity\Word $word
    * @return \Symfony\Component\Form\FormInterface|\Symfony\Component\HttpFoundation\RedirectResponse
@@ -72,10 +75,28 @@ class WordController extends Controller
       /** @var ImageManager $image_manager  */
       $image_manager = $this->get('wipi.manager.image');
 
+      // resize and crop base image
       $image_manager->crop_image($word, $word->getCropOptions());
       return $result;
     }
     return array('form' => $result->createView(), 'word' => $word, 'theme' => $word->getTheme());
+  }
+
+  /**
+   * Delete word
+   * @Route("/{slug}/delete", name="word.delete", requirements={"slug"=".+"})
+   * @Secure(roles="ROLE_USER")
+   * @param Word $word
+   */
+  public function deleteAction(Word $word)
+  {
+    if (!$word->getUser()->equals($this->getUser())) throw new AccessDeniedException();
+
+    $em = $this->getDoctrine()->getManager();
+    $em->remove($word);
+    $em->flush();
+
+    return new RedirectResponse($this->getRequest()->headers->get('referer'));
   }
 
   /**
@@ -93,8 +114,6 @@ class WordController extends Controller
     if ($result instanceof Response) return $result;
     return array('form' => $result->createView(), 'word' => $word, 'theme' => $word->getTheme());
   }
-
-
 
   /**
    * @Route("/find-translation/{slug}", name="word.find_translation", requirements={"slug"=".+"})

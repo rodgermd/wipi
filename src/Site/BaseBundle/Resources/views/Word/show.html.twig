@@ -23,8 +23,13 @@
     </tr>
     <tr>
       <th>Image</th>
-      <td>{{ word.imageFilename }}</td>
+      <td>{{ word | word_thumbnail('word_edit_source') }}</td>
     </tr>
     </tbody>
   </table>
+
+  {% if word.user.equals(app.user) %}
+    <a href="{{ path('word.delete', {slug: word.slug}) }}" class="btn btn-danger">Delete</a>
+    <a href="{{ path('word.edit', {slug: word.slug}) }}" class="btn btn-warning">Edit</a>
+  {% endif %}
 {% endblock body %}

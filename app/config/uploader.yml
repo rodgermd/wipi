@@ -41,4 +41,10 @@ liip_imagine:
       filters:
         thumbnail: { size: [530, 250], mode: inset }
         crop: { start: [0, 0], size: [100, 100] }
+    theme_big:
+      filters:
+        thumbnail: { size: [190, 190], mode: outbound }
+    theme_words_list:
+      filters:
+        thumbnail: { size: [80, 80], mode: outbound }
 

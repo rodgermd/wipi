@@ -11,6 +11,7 @@ use JMS\SecurityExtraBundle\Annotation\Secure;
 use Site\BaseBundle\Entity\Theme;
 use Site\BaseBundle\Entity\Word;
 use Site\BaseBundle\Form\ThemeForm;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * @Route("/theme")
@@ -60,6 +61,37 @@ class ThemeController extends Controller {
   }
 
   /**
+   * @Route("/edit/{slug}", name="theme.edit", requirements={"slug"=".+"})
+   * @Secure(roles="ROLE_USER")
+   * @Template
+   * @param Theme $theme
+   * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
+   * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
+   */
+  public function editAction(Theme $theme)
+  {
+    if (!$theme->getUser()->equals($this->getUser())) throw new AccessDeniedException();
+
+    $form = $this->createForm(new ThemeForm(), $theme);
+
+    if ($this->getRequest()->isMethod('POST'))
+    {
+      $form->bind($this->getRequest());
+      if ($form->isValid())
+      {
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($theme);
+        $em->flush();
+
+        $this->getRequest()->getSession()->getFlashBag()->add('success', 'Theme was updated successfully');
+        return $this->redirect($this->generateUrl('theme.show', array('slug' => $theme->getSlug())));
+      }
+    }
+
+    return array('form' => $form->createView(), 'theme' => $theme);
+  }
+
+  /**
    * Shows theme
    * @Route("/{slug}", name="theme.show", requirements={"slug"=".+"})
    * @Secure(roles="ROLE_USER")
@@ -69,8 +101,6 @@ class ThemeController extends Controller {
    */
   public function showAction(Theme $theme)
   {
-    $words = $theme->getWords();
-    $new_word = new Word();
-    return compact('theme', 'words', 'new_word');
+    return compact('theme');
   }
 }

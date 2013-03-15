@@ -205,8 +205,8 @@ class User extends BaseUser
    * @param User $user
    * @return bool
    */
-  public function equals(User $user)
+  public function equals(User $user = null)
   {
-    return $this->id == $user->getId();
+    return $user && ($this->id == $user->getId());
   }
 }

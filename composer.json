@@ -35,7 +35,7 @@
     "rodgermd/sftools-bundle":"dev-master",
     "rodgermd/compass-bundle": "dev-master",
 
-    "twitter/bootstrap":"dev-master"
+    "twitter/bootstrap":"2.3.1"
   },
   "scripts":{
     "post-install-cmd":[

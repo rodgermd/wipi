@@ -1,8 +1,3 @@
-theme:
-  create: Создать тему
-  new: Новая тема
-  name: Название
-
 themes:
   index:
     title: "Themes"

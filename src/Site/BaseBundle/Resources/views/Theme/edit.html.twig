@@ -1,0 +1,5 @@
+{% extends "SiteBaseBundle:Theme:new.html.twig" %}
+
+{% block dialog_action %}{{ path('theme.edit', { slug: theme.slug }) }}{% endblock dialog_action %}
+{% block dialog_header %}{{ 'theme.edit' | trans }}{% endblock dialog_header %}
+{% block dialog_footer %}<input type="submit" value="{{ 'theme.update' | trans({}, 'theme_forms') }}" class="btn btn-success"/>{% endblock dialog_footer %}

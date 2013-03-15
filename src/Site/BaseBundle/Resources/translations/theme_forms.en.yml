@@ -1,0 +1,6 @@
+theme:
+  create: Create theme
+  new: New theme
+  name: Name
+  edit: Edit theme
+  update: Update

@@ -72,7 +72,7 @@ class WordController extends Controller
       /** @var ImageManager $image_manager  */
       $image_manager = $this->get('wipi.manager.image');
 
-      $image_manager->crop_image($word, $word->crop_options);
+      $image_manager->crop_image($word, $word->getCropOptions());
       return $result;
     }
     return array('form' => $result->createView(), 'word' => $word, 'theme' => $word->getTheme());

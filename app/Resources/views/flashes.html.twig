@@ -1,4 +1,4 @@
-{% if app.session.flashbag | length %}
+{% if app.session.flashbag.all | length %}
   {% set translation_domain = translation_domain | default('messages') %}
   <div id="flashes">
     {% for key, messages in app.session.flashbag.all %}

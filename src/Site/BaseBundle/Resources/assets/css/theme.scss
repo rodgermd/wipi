@@ -1,0 +1,34 @@
+@import "definitions";
+
+.theme-words-list {
+  .sidebar {
+    .theme-thumbnail {
+      padding: 10px;
+      img {
+        display: block;
+        margin: 0 auto;
+        border: 2px $brown solid;
+        border-radius: 10px;
+      }
+    }
+  }
+  .theme-words-holder {
+    li {
+      list-style: none;
+      @include inline-block;
+      margin: 3px;
+      background: #fff;
+      border-radius: 3px;
+      a, img {
+        display: block;
+      }
+      a {
+        border-radius: 3px;
+        overflow: hidden;
+        &:hover {
+          box-shadow: 0 0 2px #999;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{% if theme.words | length %}
+  <div class="theme-thumbnail">
+    {{ theme.randomWord | word_thumbnail('theme_big') }}
+  </div>
+{% endif %}
+<h4>{{ theme.name }}</h4>
+<p>{{ '{0}no words|{1}one word|]1,4]%number% words|[5,Inf[%number% words' |
+  transchoice(theme.words | length, { '%number%' : theme.words | length}, 'theme_words') }}
+  {% if theme.user.equals(app.user) %}
+  | <a href="{{ path('theme.edit' , { slug: theme.slug }) }}">{{ 'theme.edit' | trans({'%theme%' : theme}, 'theme_words') }}</a>
+  {% endif %}
+</p>

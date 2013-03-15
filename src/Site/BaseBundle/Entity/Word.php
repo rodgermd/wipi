@@ -124,8 +124,7 @@ class Word
   private $soundfile;
 
   /** @var array $crop_options */
-  public $crop_options = array();
-
+  private $crop_options = array();
 
   /**
    * Get id
@@ -405,5 +404,21 @@ class Word
   public function getNote()
   {
     return $this->note;
+  }
+
+  /**
+   * @param array $crop_options
+   */
+  public function setCropOptions($crop_options)
+  {
+    $this->crop_options = $crop_options;
+  }
+
+  /**
+   * @return array
+   */
+  public function getCropOptions()
+  {
+    return $this->crop_options;
   }
 }

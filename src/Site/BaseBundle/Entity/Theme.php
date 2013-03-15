@@ -297,4 +297,18 @@ class Theme
   {
     return $this->words;
   }
+
+  /**
+   * Gets random word related to this theme
+   * @return Word|null
+   */
+  public function getRandomWord()
+  {
+    $words = $this->getWords()->toArray();
+    if (count($words)) {
+      shuffle($words);
+      return array_pop($words);
+    }
+    return null;
+  }
 }

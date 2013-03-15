@@ -1,18 +1,6 @@
-{% extends "::base.html.twig" %}
+{% extends "::dialog.layout.html.twig" %}
 
-{% block body %}
-  {% form_theme form "RodgermdSfToolsBundle:Form:bootstrap_control_groups_theme.html.twig" %}
-  <form action="{{ path('theme.new') }}" method="POST" class="form-horizontal">
-    <div class="modal inline">
-      <div class="modal-header">
-        <h3>{{ 'theme.new' | trans }}</h3>
-      </div>
-      <div class="modal-body">
-        {{ form_widget(form) }}
-      </div>
-      <div class="modal-footer">
-        <input type="submit" value="{{ 'theme.create' | trans }}" class="btn btn-success"/>
-      </div>
-  </form>
-
-{% endblock body %}
+{% block dialog_action %}{{ path('theme.new') }}{% endblock dialog_action %}
+{% block dialog_header %}{{ 'theme.new' | trans }}{% endblock dialog_header %}
+{% block dialog_body %}{{ form_widget(form) }}{% endblock dialog_body %}
+{% block dialog_footer %}<input type="submit" value="{{ 'theme.create' | trans({}, 'theme_forms') }}" class="btn btn-success"/>{% endblock dialog_footer %}

@@ -1,11 +1,31 @@
 {% extends "::base.html.twig" %}
 
 {% block body %}
-  <h2>{{ theme.name }}</h2>
-  <ul id="theme-words">
-    {% for word in words %}
-      <li><a href="{{ path('word.edit', { slug: word.slug }) }}">{{ word.source }} -> {{ word.target }}</a></li>
-      {% endfor %}
-    <li><a href="{{ path('word.new', { slug: theme.slug }) }}">{{ new_word | word_thumbnail }}</a></li>
-  </ul>
+  <div class="row-fluid theme-words-list">
+    <div class="span3 sidebar">
+      {% include "SiteBaseBundle:Theme:_sidebar.html.twig" %}
+    </div>
+    <div class="span9 theme-words-holder">
+      <ul id="theme-words">
+        {% for word in theme.words %}
+          <li class="theme-word">
+            <a href="{{ path('word.show', { slug: word.slug }) }}"
+               class="has-tooltip"
+               data-toggle="tooltip"
+               data-placement="top"
+               data-original-title="{{ word.source }} -> {{ word.target }}">
+              {{ word | word_thumbnail('theme_words_list') }}
+               </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
 {% endblock body %}
+
+{% block stylesheets %}
+  {{ parent() }}
+  {% stylesheets filter="compass, ?yui_css" "@SiteBaseBundle/Resources/assets/css/theme.scss" %}
+  <link rel="stylesheet" href="{{ asset_url }}"/>
+  {% endstylesheets %}
+{% endblock stylesheets %}

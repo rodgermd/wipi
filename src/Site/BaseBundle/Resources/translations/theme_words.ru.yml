@@ -1,3 +1,6 @@
 theme:
   "{0}no words|{1}one word|]1,4]%number% words|[5,Inf[%number% words": "{0}Нет слов|{1}1 слово|]1,4]%number% слова|[5,Inf[%number% слов"
   edit: Редактировать
+
+word:
+  new: Новое слово

@@ -1,5 +1,5 @@
 theme:
-  no_words: No words
-  one_word: 1 word
-  number_words: %number% words
   edit: Edit
+
+word:
+  new: New word

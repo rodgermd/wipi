@@ -11,6 +11,17 @@
         border-radius: 10px;
       }
     }
+    .sidebar-controls {
+      li {
+        @include inline-block;
+        & + li {
+          &:before {
+            content: '|';
+            margin: 0 5px;
+          }
+        }
+      }
+    }
   }
   .theme-words-holder {
     li {

@@ -4,9 +4,12 @@
   </div>
 {% endif %}
 <h4>{{ theme.name }}</h4>
-<p>{{ '{0}no words|{1}one word|]1,4]%number% words|[5,Inf[%number% words' |
-  transchoice(theme.words | length, { '%number%' : theme.words | length}, 'theme_words') }}
+<ul class="sidebar-controls">
+<li>{{ '{0}no words|{1}one word|]1,4]%number% words|[5,Inf[%number% words' |
+  transchoice(theme.words | length, { '%number%' : theme.words | length}, 'theme_words') }}</li>
   {% if theme.user.equals(app.user) %}
-  | <a href="{{ path('theme.edit' , { slug: theme.slug }) }}">{{ 'theme.edit' | trans({'%theme%' : theme}, 'theme_words') }}</a>
+    <li><a href="{{ path('theme.edit' , { slug: theme.slug }) }}">{{ 'theme.edit' | trans({'%theme%' : theme}, 'theme_words') }}</a></li>
+    <li><a href="{{ path('word.new' , { slug: theme.slug }) }}">{{ 'word.new' | trans({}, 'theme_words') }}</a></li>
   {% endif %}
 </p>
+</ul>

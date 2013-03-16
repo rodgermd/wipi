@@ -31,7 +31,7 @@ class WordController extends Controller
 {
 
   /**
-   * @Route("/show/{slug}", name="word.show", requirements={"slug"=".+"})
+   * @Route("/{slug}/show", name="word.show", requirements={"slug"=".+"})
    * @Template
    * @param \Site\BaseBundle\Entity\Word $word
    * @return array

@@ -1,0 +1,4 @@
+services:
+  wipi.api.flickr:
+    class: Rodgermd\FlickrApi\Wrapper\FlickrApi
+    arguments: []

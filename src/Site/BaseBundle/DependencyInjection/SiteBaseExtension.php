@@ -2,6 +2,7 @@
 
 namespace Site\BaseBundle\DependencyInjection;
 
+use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
@@ -24,7 +25,16 @@ class SiteBaseExtension extends Extension
     $loader->load('parameters.yml');
     $loader->load('forms.yml');
     $loader->load('managers.yml');
+    $loader->load('apis.yml');
 
     $configuration = new Configuration();
+    $processor = new Processor();
+
+    $config = $processor->processConfiguration($configuration, $configs);
+
+    foreach($config['flickr'] as $key => $value)
+    {
+      $container->setParameter('wipi_flickr_' . $key, $value);
+    }
   }
 }

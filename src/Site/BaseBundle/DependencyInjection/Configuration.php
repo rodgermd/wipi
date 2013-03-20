@@ -20,6 +20,15 @@ class Configuration implements ConfigurationInterface
     $treeBuilder = new TreeBuilder();
     $rootNode    = $treeBuilder->root('wipi');
 
+    $rootNode->children()
+      ->arrayNode('flickr')->children()
+        ->scalarNode('key')->isRequired()->end()
+        ->scalarNode('secret')->isRequired()->end()
+        ->scalarNode('userid')->isRequired()->end()
+        ->scalarNode('endpoint')->defaultValue('http://api.flickr.com/services/rest/?')->end()
+      ->end()
+    ->end();
+
 
     return $treeBuilder;
   }

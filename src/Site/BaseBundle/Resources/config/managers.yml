@@ -2,3 +2,6 @@ services:
   wipi.manager.image:
     class: Site\BaseBundle\Manager\ImageManager
     arguments: [@service_container, 'crop_on_upload']
+  wipi.manager.photo_search:
+    class: Site\BaseBundle\Manager\PhotoSearchManager
+    arguments: [@service_container]

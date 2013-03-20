@@ -3,6 +3,7 @@ imports:
     - { resource: security.yml }
     - { resource: uploader.yml }
     - { resource: translators.yml }
+    - { resource: wipi.yml }
 
 framework:
     #esi:             ~

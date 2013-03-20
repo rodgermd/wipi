@@ -3,6 +3,7 @@
 namespace Site\BaseBundle\Controller;
 
 use Site\BaseBundle\Manager\ImageManager;
+use Site\BaseBundle\Manager\PhotoSearchManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -128,5 +129,18 @@ class WordController extends Controller
     $response            = new Response(json_encode($result));
     $response->headers->set('Content-type', 'application/json');
     return $response;
+  }
+
+  /**
+   * @Route("/search-photos/{slug}", name="word.search_photos", requirements={"slug"=".+"})
+   * @Template()
+   * @param Word $word
+   * @return array
+   */
+  public function searchFlickrAction(Word $word)
+  {
+    /** @var PhotoSearchManager $manager  */
+    $manager = $this->container->get('wipi.manager.photo_search');
+    return array('images' => $manager->search(implode(',', array($word->getSource(), $word->getTarget()))));
   }
 }

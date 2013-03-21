@@ -96,9 +96,15 @@ class ImageManager
     /** @var Validator $validator  */
     $validator = $this->container->get('validator');
     $errors = $validator->validate($word);
-    if ($errors->count()) throw new WrongImageUrlException();
+    if ($errors->count())
+    {
+      unlink($temp_file_name);
+      throw new WrongImageUrlException();
+    }
 
     $this->em->persist($word);
     $this->em->flush($word);
+
+    unlink($temp_file_name);
   }
 }

@@ -4,8 +4,8 @@ word:
   create: Создать
   new: Новое слово в теме "%theme%" [%source% -> %target%]
   edit: Редактирование слова "%word%"
-  upload_file: Загрузить файл
-  select_from_web: Из веба
+  upload_file: Загрузить новый файл
+  select_from_web: Взять новую из flickr
   crop_image: Обрезать загруженную картинку
   buttons:
     findtranslation: Найти перевод

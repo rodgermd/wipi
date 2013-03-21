@@ -8,6 +8,7 @@ use Liip\ImagineBundle\Imagine\Data\DataManager;
 use Liip\ImagineBundle\Imagine\Filter\FilterConfiguration;
 use Liip\ImagineBundle\Imagine\Filter\FilterManager;
 use Site\BaseBundle\Entity\Word;
+use Site\BaseBundle\Manager\Exception\WrongImageUrlException;
 use Symfony\Component\DependencyInjection\Container;
 
 use Imagine\Filter\Basic\Crop;
@@ -15,6 +16,7 @@ use Imagine\Filter\Basic\Thumbnail;
 use Imagine\Image\Box;
 use Imagine\Image\Point;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Validator;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 class ImageManager
@@ -74,5 +76,29 @@ class ImageManager
     }
     // unlink temp file
     unlink($temp_file_name);
+  }
+
+  public function upload_from_url(Word $word, $url)
+  {
+    $image_data = file_get_contents($url);
+    if (!$image_data) throw new WrongImageUrlException();
+
+    $extension = pathinfo($url, PATHINFO_EXTENSION);
+
+    $temp_file_name = tempnam(sys_get_temp_dir(), uniqid() . '.' . $extension);
+    $fh             = fopen($temp_file_name, 'wb');
+    fwrite($fh, $image_data);
+    fclose($fh);
+
+    $uploaded_file = new UploadedFile($temp_file_name, uniqid(). '.jpg', null, filesize($temp_file_name));
+    $word->setImagefile($uploaded_file);
+
+    /** @var Validator $validator  */
+    $validator = $this->container->get('validator');
+    $errors = $validator->validate($word);
+    if ($errors->count()) throw new WrongImageUrlException();
+
+    $this->em->persist($word);
+    $this->em->flush($word);
   }
 }

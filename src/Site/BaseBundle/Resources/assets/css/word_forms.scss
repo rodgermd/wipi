@@ -64,6 +64,9 @@
   .accordion-inner.loading {
     height: 32px;
     background: url('/bundles/sitebase/images/loading32.gif') 50% 50% no-repeat;
+    .flickr-images-list {
+      display: none;
+    }
   }
 
   .flickr-images-list {

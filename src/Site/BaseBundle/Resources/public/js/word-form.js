@@ -90,13 +90,14 @@ $.fn.word_form_image = function () {
   var field_y;
   var field_w;
   var field_h;
-  var $accordion = $('#image_accordion', $h);
-  var $accordion_flickr_holder = $('#image_select-from-web', $accordion);
-  var $accordion_flickr_inner = $('.accordion-inner', $accordion_flickr_holder);
+  var $accordion, $accordion_flickr_holder, $accordion_flickr_inner;
 
   $obj = {
     init: function () {
       $image = $('.crop-container img', $h);
+      $accordion = $('#image_accordion', $h);
+      $accordion_flickr_holder = $('#image_select-from-web', $accordion);
+      $accordion_flickr_inner = $('.accordion-inner', $accordion_flickr_holder);
       $(':file', $h).on('change', $obj.submit_remote);
       if ($image.length) {
         $obj.load_jcrop();

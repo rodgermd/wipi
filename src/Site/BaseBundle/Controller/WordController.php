@@ -2,6 +2,7 @@
 
 namespace Site\BaseBundle\Controller;
 
+use Site\BaseBundle\Manager\Exception\WrongImageUrlException;
 use Site\BaseBundle\Manager\ImageManager;
 use Site\BaseBundle\Manager\PhotoSearchManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -51,10 +52,10 @@ class WordController extends Controller
    */
   public function newAction(Theme $theme)
   {
-    /** @var WordHandler $handler  */
+    /** @var WordHandler $handler */
     $handler = $this->get('wipi.word.form_handler');
-    $form = $handler->generate_new_form($theme);
-    $result = $handler->process($form);
+    $form    = $handler->generate_new_form($theme);
+    $result  = $handler->process($form);
     if ($result instanceof Response) return $result;
     return array('form' => $result->createView(), 'theme' => $theme);
   }
@@ -68,12 +69,12 @@ class WordController extends Controller
    */
   public function editAction(Word $word)
   {
-    /** @var WordHandler $handler  */
+    /** @var WordHandler $handler */
     $handler = $this->get('wipi.word.form_handler');
-    $form = $handler->generate_edit_form($word);
-    $result = $handler->process($form);
+    $form    = $handler->generate_edit_form($word);
+    $result  = $handler->process($form);
     if ($result instanceof Response) {
-      /** @var ImageManager $image_manager  */
+      /** @var ImageManager $image_manager */
       $image_manager = $this->get('wipi.manager.image');
 
       // resize and crop base image
@@ -109,9 +110,9 @@ class WordController extends Controller
    */
   public function submitImage(Word $word)
   {
-    /** @var WordImageHandler $handler  */
+    /** @var WordImageHandler $handler */
     $handler = $this->get('wipi.word.image_handler');
-    $result = $handler->process_separate_image_upload($word);
+    $result  = $handler->process_separate_image_upload($word);
     if ($result instanceof Response) return $result;
     return array('form' => $result->createView(), 'word' => $word, 'theme' => $word->getTheme());
   }
@@ -122,7 +123,17 @@ class WordController extends Controller
    */
   public function sumbitImageUrl(Word $word)
   {
+    $url = $this->getRequest()->get('url');
 
+    /** @var ImageManager $manager */
+    $manager = $this->get('wipi.manager.image');
+    try {
+      $manager->upload_from_url($word, $url);
+      return $this->render('SiteBaseBundle:Word:_form_word_image.html.twig', $this->editAction($word));
+    } catch (WrongImageUrlException $e) {
+    }
+
+    return new Response(500);
   }
 
   /**
@@ -148,10 +159,10 @@ class WordController extends Controller
    */
   public function searchFlickrAction(Word $word)
   {
-    /** @var PhotoSearchManager $manager  */
+    /** @var PhotoSearchManager $manager */
     $manager = $this->container->get('wipi.manager.photo_search');
     return array(
-      'word' => $word,
+      'word'   => $word,
       'images' => $manager->search(implode(',', array($word->getSource(), $word->getTarget()))));
   }
 }

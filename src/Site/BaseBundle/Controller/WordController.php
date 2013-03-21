@@ -117,6 +117,15 @@ class WordController extends Controller
   }
 
   /**
+   * @Route("{slug}/submit-image-url", name="word.upload_from_web", requirements={"slug"=".+", "_method"="POST"})
+   * @param Word $word
+   */
+  public function sumbitImageUrl(Word $word)
+  {
+
+  }
+
+  /**
    * @Route("/find-translation/{slug}", name="word.find_translation", requirements={"slug"=".+"})
    * @Method("POST")
    * @Secure(roles="ROLE_USER")
@@ -141,6 +150,8 @@ class WordController extends Controller
   {
     /** @var PhotoSearchManager $manager  */
     $manager = $this->container->get('wipi.manager.photo_search');
-    return array('images' => $manager->search(implode(',', array($word->getSource(), $word->getTarget()))));
+    return array(
+      'word' => $word,
+      'images' => $manager->search(implode(',', array($word->getSource(), $word->getTarget()))));
   }
 }

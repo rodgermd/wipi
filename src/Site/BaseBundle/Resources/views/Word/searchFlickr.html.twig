@@ -1,0 +1,9 @@
+<ul>
+  {% for image in images %}
+    <li>
+      <a href="{{ path('word.upload_from_web', { slug: word.slug }) }}">
+      <img src="{{ image.thumbnail('s') }}" alt="{{ image.title }}" data-full-image-url="{{ image.thumbnail('b') }}"/>
+      </a>
+    </li>
+  {% endfor %}
+</ul>

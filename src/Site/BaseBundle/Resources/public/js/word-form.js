@@ -90,6 +90,9 @@ $.fn.word_form_image = function () {
   var field_y;
   var field_w;
   var field_h;
+  var $accordion = $('#image_accordion', $h);
+  var $accordion_flickr_holder = $('#image_select-from-web', $accordion);
+  var $accordion_flickr_inner = $('.accordion-inner', $accordion_flickr_holder);
 
   $obj = {
     init: function () {
@@ -102,6 +105,44 @@ $.fn.word_form_image = function () {
         field_w = $("[name*=crop_w]", $h);
         field_h = $("[name*=crop_h]", $h);
       }
+      $("#image_select-from-web_heading", $accordion).on('click', $obj.load_flickr_images);
+      $accordion_flickr_holder.delegate('.accordion-inner:not(.loading) .flickr-images-list a', 'click', $obj.use_remote_image);
+    },
+    use_remote_image: function(e) {
+      e.preventDefault();
+      var $link = $(this);
+      var $img = $('img', $link);
+      $.ajax({
+        url: $link.attr('href'),
+        type: 'post',
+        data: { url: $img.attr('data-full-image-url') },
+        beforeSend : function() {
+          $accordion_flickr_inner.addClass('loading');
+        },
+        complete: function () {
+          $accordion_flickr_inner.removeClass('loading');
+        },
+        success: function(r) {
+          $h.html($(r).html());
+          $obj.init();
+        }
+      });
+    },
+    load_flickr_images: function () {
+      var $list = $('.flickr-images-list', $accordion);
+      if ($accordion_flickr_inner.is('.fetching-data') || $accordion_flickr_inner.is('.loaded')) return true;
+      $.ajax({
+        url: $list.data('source'),
+        beforeStart: function () {
+          $list.addClass('fetching-data');
+        },
+        success: function (r) {
+          $list.html($(r).html());
+        },
+        complete: function () {
+          $accordion_flickr_inner.removeClass('loading fetching-data').addClass('loaded');
+        }
+      });
 
     },
     load_jcrop: function () {

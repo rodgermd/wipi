@@ -1,15 +1,54 @@
 {% form_theme form "RodgermdSfToolsBundle:Form:bootstrap_control_groups_theme.html.twig" %}
 <div class="word-image-container"
      data-source="{{ path('word.upload.image', {slug: word.slug}) }}" {{ form_enctype(form) }}>
-  {% if word | is_uploaded('imagefile') %}
-    <div class="crop-container">
-      {{ word | uploaded_image('word_edit_source', 'imagefile') }}
-      {% if form.crop_options is defined %}
-        <div class="hidden">
-          {{ form_row(form.crop_options) }}
+  <div class="accordion" id="image_accordion">
+    {% if word | is_uploaded('imagefile') %}
+      <div class="accordion-group">
+        <div class="accordion-heading">
+          <a class="accordion-toggle" data-toggle="collapse" data-parent="#image_accordion" href="#image_crop_holder">
+            {{ 'word.crop_image' | trans({}, 'word_forms') }}
+          </a>
         </div>
-      {% endif %}
+        <div id="image_crop_holder" class="accordion-body collapse in">
+          <div class="accordion-inner">
+            <div class="crop-container">
+              {{ word | uploaded_image('word_edit_source', 'imagefile') }}
+              {% if form.crop_options is defined %}
+                <div class="hidden">
+                  {{ form_row(form.crop_options) }}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+    <div class="accordion-group">
+      <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#image_accordion" href="#image_upload-file">
+          {{ 'word.upload_file' | trans({}, 'word_forms') }}
+        </a>
+      </div>
+      <div id="image_upload-file" class="accordion-body collapse in">
+        <div class="accordion-inner">
+          {{ form_row(form.imagefile) }}
+        </div>
+      </div>
     </div>
-  {% endif %}
-  {{ form_row(form.imagefile) }}
+    <div class="accordion-group">
+      <div class="accordion-heading" id="image_select-from-web_heading">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="#image_accordion" href="#image_select-from-web">
+          {{ 'word.select_from_web' | trans({}, 'word_forms') }}
+        </a>
+      </div>
+      <div id="image_select-from-web" class="accordion-body collapse">
+        <div class="accordion-inner lazy-loads loading">
+          <ul class="flickr-images-list" data-source="{{ path('word.search_photos', { slug: word.slug }) }}">
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 </div>

@@ -4,6 +4,9 @@ word:
   create: Create
   new: New word in theme "%theme%" [%source% -> %target%]
   edit: Edit word "%word%"
+  upload_file: Upload a file
+  select_from_web: Select from web source
+  crop_image: Crop uploaded image
   buttons:
     findtranslation: Find translation
     continue: Continue

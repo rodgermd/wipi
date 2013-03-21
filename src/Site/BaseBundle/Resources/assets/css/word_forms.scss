@@ -60,4 +60,30 @@
       margin: 0 auto 5px;
     }
   }
+
+  .accordion-inner.loading {
+    height: 32px;
+    background: url('/bundles/sitebase/images/loading32.gif') 50% 50% no-repeat;
+  }
+
+  .flickr-images-list {
+    li {
+      @include inline-block;
+      margin: 3px;
+    }
+
+    a {
+      display: block;
+      position: relative;
+      img {
+        display: block;
+        max-width: 70px;
+        border: 0;
+      }
+      &:hover {
+        box-shadow: 0 0 2px #333;
+      }
+    }
+  }
+
 }

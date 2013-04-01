@@ -6,14 +6,14 @@ use Site\BaseBundle\Helper\Exception\TranslationException;
 
 class TranslationHelper
 {
-  protected $cached_results = array();
   protected $container;
   protected $translator_params;
 
-  const GOOGLE = 'google';
-  const YANDEX = 'yandex';
+  const GOOGLE         = 'google';
+  const YANDEX         = 'yandex';
+  const GOOGLE_SUGGEST = 'google_suggest';
 
-  public static $translators = array(self::GOOGLE, self::YANDEX);
+  public static $translators = array(self::GOOGLE, self::YANDEX, self::GOOGLE_SUGGEST);
 
   public function __construct(Container $container)
   {
@@ -32,19 +32,21 @@ class TranslationHelper
   {
     $word = mb_strtolower($word, 'UTF8');
 
-    if (@$this->cached_results[$source_culture][$target_culture][$word]) return $this->cached_results[$word];
-
     $result = array();
     try {
       $result[self::GOOGLE] = $this->translate_google($source_culture, $target_culture, $word);
+    } catch (TranslationException $e) {
     }
-    catch (TranslationException $e) {}
     try {
       $result[self::YANDEX] = $this->translate_yandex($source_culture, $target_culture, $word);
+    } catch (TranslationException $e) {
     }
-    catch (TranslationException $e) {}
+    try {
+      $result[self::GOOGLE_SUGGEST] = $this->translate_google_suggest($source_culture, $target_culture, $word);
+    } catch (TranslationException $e) {
+    }
 
-    return $this->cached_results[$source_culture][$target_culture][$word] = $result;
+    return $result;
   }
 
   /**
@@ -56,10 +58,10 @@ class TranslationHelper
    */
   public function find_group_by_word($source_culture, $target_culture, $word)
   {
-    $found = $this->find($source_culture, $target_culture, $word);
+    $found  = $this->find($source_culture, $target_culture, $word);
     $result = array();
-    foreach($found as $service => $values) {
-      foreach($values as $word) {
+    foreach ($found as $service => $values) {
+      foreach ($values as $word) {
         @$result[strtolower($word)][] = $service;
       }
     }
@@ -67,7 +69,7 @@ class TranslationHelper
   }
 
   /**
-   * Translates using bing
+   * Translates using google
    * @param $source_culture
    * @param $target_culture
    * @param $word
@@ -85,12 +87,47 @@ class TranslationHelper
 
     $result = $this->query($url);
 
-    $parsed = array_filter(array_map(function ($e) { return trim($e['translatedText']); }, $result['data']['translations']));
+    $parsed = array_filter(array_map(function ($e) {
+      return trim($e['translatedText']);
+    }, $result['data']['translations']));
     if (!count($parsed)) throw new TranslationException('No results');
 
     return $parsed;
   }
 
+  /**
+   * Translates using google
+   * @param $source_culture
+   * @param $target_culture
+   * @param $word
+   * @return mixed
+   * @throws Exception\TranslationException
+   */
+  public function translate_google_suggest($source_culture, $target_culture, $word)
+  {
+    $url = strtr("http://translate.google.com/translate_a/t?client=t&text=%word%&hl=en&sl=%from%&tl=%to%&ie=UTF-8&oe=UTF-8&multires=1&otf=2&ssel=0&tsel=0&sc=1",
+      array(
+      '%from%'    => $source_culture,
+      '%to%'      => $target_culture,
+      '%word%'    => urlencode($word)
+    ));
+
+    $result = $this->query($url);
+    if (!$result)throw new TranslationException('No results');
+
+    $parsed = new GoogleTransResponse($result);
+
+    return $parsed;
+  }
+
+  /**
+   * Translates using yandex
+   * @param $source_culture
+   * @param $target_culture
+   * @param $word
+   * @return array
+   * @throws Exception\TranslationException
+   */
   public function translate_yandex($source_culture, $target_culture, $word)
   {
     $url    = "http://translate.yandex.net/api/v1/tr.json/translate";
@@ -109,7 +146,7 @@ class TranslationHelper
 
   protected function query($url, array $options = array())
   {
-    $ch = curl_init();
+    $ch      = curl_init();
     $options = array(
       CURLOPT_URL            => $url,
       CURLOPT_RETURNTRANSFER => TRUE
@@ -120,6 +157,8 @@ class TranslationHelper
     curl_close($ch);
 
     if ($httpCode != 200) throw new TranslationException('Error received: ' . $response);
+    $response = preg_replace("#,\s*,#", ",", $response);
+    $response = preg_replace("#,\s*,#", ",", $response);
     return json_decode($response, true);
   }
 

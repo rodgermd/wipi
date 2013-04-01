@@ -27,7 +27,7 @@ $.fn.word_form_translation = function () {
   $obj = {
     init: function () {
       searcher.on('click', $obj.search);
-      translations_container.delegate('.translated-word', 'click', $obj.use_translation);
+      translations_container.delegate('th span', 'click', $obj.use_translation);
     },
     search: function () {
       translations_container.html('');
@@ -51,23 +51,28 @@ $.fn.word_form_translation = function () {
       });
     },
     render_translations: function (r) {
-      // no results - return
-      if (!Object.keys(r).length) return;
-      // single result - no need to render choices
-      if (Object.keys(r).length == 1) {
-        translated_word.val(Object.keys(r)[0]);
-        return;
+      var $list = $('<table/>'),
+          row = $('<tr><td class="relevancy"><i><b/></i></td><th/><td class="reverse-words"/></tr>'),
+          word = $('<span/>');
+      var relevancies = [];
+      for (var key in r.translations) {
+        var re = r.translations[key].relevancy;
+        relevancies.push($.isArray(re) ? re[0] : re);
       }
-      var $list = $('<ul/>'),
-          row = $('<li class="word"/>'),
-          translator = $('<span class="translator-service"/>'),
-          word_container = $('<span class="translated-word"/>');
-      for (var word in r) {
+      var max_relevancy = relevancies.sort().pop();
+
+      for (var key in r.translations) {
+        var translation = r.translations[key];
+        var relevancy = $.isArray(translation.relevancy) ? translation.relevancy[0] : translation.relevancy;
         var $row = row.clone();
-        word_container.clone().text(word).appendTo($row);
-        for (var key in r[word]) {
-          translator.clone().addClass('service-' + r[word][key]).appendTo($row);
-        }
+        $('.relevancy b', $row).width(Math.floor(relevancy / max_relevancy * 100) + '%');
+        $('th', $row).append(word.clone().text(translation.word));
+        var words = [];
+        $.each(translation.reverse_values, function() {
+          words.push(word.clone().text(this).get(0).outerHTML);
+        })
+        $('.reverse-words', $row).append(words.join(', '));
+
         $list.append($row);
       }
       $list.appendTo(translations_container);

@@ -37,6 +37,8 @@ class AppKernel extends Kernel
       new Rodgermd\SfToolsBundle\RodgermdSfToolsBundle(),
       new Rodgermd\CompassBundle\RodgermdCompassBundle(),
       new Site\UserBundle\SiteUserBundle(),
+
+      new JMS\SerializerBundle\JMSSerializerBundle(),
     );
 
     if (in_array($this->getEnvironment(), array('dev', 'test'))) {

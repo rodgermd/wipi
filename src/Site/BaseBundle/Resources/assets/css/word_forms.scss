@@ -1,33 +1,51 @@
 @import "compass";
 
 .translations-target {
-  ul {
-    margin: 10px 0;
-    padding: 0;
-    li {
-      list-style: none;
-      padding: 10px;
-      background-color: #f3f3f3;
-      &:hover {
-        background-color: #ccc;
+  $blue: #696CE6;
+  table {
+    margin-bottom: 1em;
+    td {
+      padding: 5px 3px;
+    }
+    th {
+      padding: 5px;
+    }
+    td, th {
+      border-bottom: 1px #ccc solid;
+      vertical-align: middle;
+      &.relevancy {
+        i {
+          @include inline-block;
+          width: 20px;
+          height: 4px;
+          background-color: #f1f1f1;
+          position: relative;
+        }
+        b {
+          display: block;
+          position: absolute;
+          right: 0;
+          height: 4px;
+          background-color: $blue;
+        }
       }
-      .translated-word {
-        @include inline-block;
-        padding: 5px 10px;
-        cursor: pointer;
+      &.reverse-words {
+        color: #999;
+      }
+    }
+    th {
+      span {
         font-weight: bold;
-        min-width: 100px;
+        &:hover {
+          text-decoration: underline;
+          cursor: pointer;
+        }
       }
-      .translator-service {
-        @include inline-block;
-        margin-left: 5px;
-      }
-      .service-google:before {
-        content: 'google';
-      }
-      .service-yandex:before {
-        content: 'yandex';
-      }
+    }
+  }
+  tr:hover {
+    .reverse-words {
+      color: #333;
     }
   }
 }

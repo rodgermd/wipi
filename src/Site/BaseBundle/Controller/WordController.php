@@ -2,6 +2,8 @@
 
 namespace Site\BaseBundle\Controller;
 
+use JMS\Serializer\Serializer;
+use Site\BaseBundle\Helper\GoogleTransResponse;
 use Site\BaseBundle\Manager\Exception\WrongImageUrlException;
 use Site\BaseBundle\Manager\ImageManager;
 use Site\BaseBundle\Manager\PhotoSearchManager;
@@ -145,8 +147,11 @@ class WordController extends Controller
   {
     /** @var TranslationHelper $translations_helper */
     $translations_helper = $this->get('wipi.translator');
-    $result              = $translations_helper->find_group_by_word($theme->getSourceCulture(), $theme->getTargetCulture(), $this->getRequest()->get('word'));
-    $response            = new Response(json_encode($result));
+    /** @var Serializer $serializer  */
+    $serializer = $this->get('jms_serializer');
+    /** @var GoogleTransResponse $result  */
+    $result              = $translations_helper->translate_google_suggest($theme->getSourceCulture(), $theme->getTargetCulture(), $this->getRequest()->get('word'));
+    $response            = new Response($serializer->serialize($result, 'json'));
     $response->headers->set('Content-type', 'application/json');
     return $response;
   }

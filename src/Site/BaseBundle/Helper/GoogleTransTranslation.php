@@ -22,7 +22,7 @@ class GoogleTransTranslation
   {
     if (!count($data)) throw new TranslationException();
     $this->word           = $data[0];
-    $this->relevancy      = $data[2];
+    $this->relevancy      = (int) @$data[2];
     $this->reverse_values = $data[1];
   }
 }

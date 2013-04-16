@@ -5,3 +5,10 @@ services:
   wipi.manager.photo_search:
     class: Site\BaseBundle\Manager\PhotoSearchManager
     arguments: [@service_container]
+  wipi.manager.google_sound:
+    class: Site\BaseBundle\Manager\GoogleSoundManager
+    arguments:
+      - @buzz
+      - @doctrine.orm.default_entity_manager
+      - @vich_uploader.templating.helper.uploader_helper
+      - @vich_uploader.storage

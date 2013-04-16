@@ -19,7 +19,7 @@
     </tr>
     <tr>
       <th>Sound</th>
-      <td>{{ word.soundFilename }}</td>
+      <td><audio controls="true" src="{{ path('sound.autosuggested', { culture: word.theme.targetCulture, word: word.target }) }}"></audio></td>
     </tr>
     <tr>
       <th>Image</th>

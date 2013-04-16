@@ -38,6 +38,7 @@ class AppKernel extends Kernel
       new Rodgermd\CompassBundle\RodgermdCompassBundle(),
       new Site\UserBundle\SiteUserBundle(),
 
+      new Sensio\Bundle\BuzzBundle\SensioBuzzBundle(),
       new JMS\SerializerBundle\JMSSerializerBundle(),
     );
 

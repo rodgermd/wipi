@@ -1,4 +1,5 @@
 knp_gaufrette:
+  stream_wrapper: ~
   adapters:
     word_images_adapter:
       local:
@@ -7,11 +8,17 @@ knp_gaufrette:
       local:
         directory: %kernel.root_dir%/../storage/words/sounds
 
+    google_sound:
+      local:
+        directory: %kernel.root_dir%/../storage/google_sounds
+
   filesystems:
     word_images_fs:
       adapter:    word_images_adapter
     word_sounds_fs:
       adapter:    word_sounds_adapter
+    google_sounds_fs:
+      adapter:    google_sound
 
 vich_uploader:
   db_driver: orm
@@ -25,6 +32,10 @@ vich_uploader:
     word_sound:
       uri_prefix: /words/sounds
       upload_destination: word_sounds_fs
+      namer: rodgermd.vichuploader.namer_md5
+    google_sound:
+      uri_prefix: /google_sounds
+      upload_destination: google_sounds_fs
       namer: rodgermd.vichuploader.namer_md5
 
 liip_imagine:

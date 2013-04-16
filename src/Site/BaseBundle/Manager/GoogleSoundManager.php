@@ -23,15 +23,13 @@ class GoogleSoundManager
   protected $browser;
   protected $sound_repository;
   protected $em;
-  protected $vich;
   protected $storage;
 
-  public function __construct(Browser $browser, EntityManager $em, UploaderHelper $vich, GaufretteStorage $vich_storage)
+  public function __construct(Browser $browser, EntityManager $em, GaufretteStorage $vich_storage)
   {
     $this->browser          = $browser;
     $this->em               = $em;
     $this->sound_repository = $em->getRepository('SiteBaseBundle:GoogleSound');
-    $this->vich             = $vich;
     $this->storage          = $vich_storage;
   }
 

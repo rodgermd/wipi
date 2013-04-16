@@ -10,5 +10,4 @@ services:
     arguments:
       - @buzz
       - @doctrine.orm.default_entity_manager
-      - @vich_uploader.templating.helper.uploader_helper
       - @vich_uploader.storage
